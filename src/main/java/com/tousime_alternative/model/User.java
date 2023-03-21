@@ -1,11 +1,11 @@
 package com.tousime_alternative.model;
 
 import com.tousime_alternative.model.enumr.Role;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,15 +14,16 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue
-    private long id;
+public class User extends AbstractEntity implements UserDetails {
+    //    @Id
+//    @GeneratedValue
+//    private long id;
     @Column(nullable = false, length = 50)
     private String lastname;
     @Column(nullable = false, length = 50)
