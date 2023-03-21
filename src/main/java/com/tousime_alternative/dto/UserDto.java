@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+
 @Data
 @Builder
 public class UserDto {
@@ -18,6 +19,7 @@ public class UserDto {
     private String email;
     private Instant birthday;
     private Role role;
+
     public static UserDto fromEntity(User user) {
         if (user == null) {
             return null;
