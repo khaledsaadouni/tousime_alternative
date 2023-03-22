@@ -4,7 +4,6 @@ import com.tousime_alternative.dto.auth.AuthenticationRequest;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.dto.auth.RegisterRequest;
 import com.tousime_alternative.model.User;
-import com.tousime_alternative.model.enumr.Role;
 import com.tousime_alternative.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +27,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.Admin)
+                .role(request.getRole())
                 .build();
         user.setCreationDate(Instant.now());
         repository.save(user);

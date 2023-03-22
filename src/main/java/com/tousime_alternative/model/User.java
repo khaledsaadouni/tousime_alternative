@@ -34,7 +34,7 @@ public class User extends AbstractEntity implements UserDetails {
     private String password;
     @Column()
     private String photo;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column()
     private Instant birthday;
