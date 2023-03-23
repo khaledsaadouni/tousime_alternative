@@ -1,5 +1,6 @@
 package com.tousime_alternative.service.auth;
 
+import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.dto.auth.AuthenticationRequest;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.dto.auth.RegisterRequest;
@@ -34,6 +35,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(UserDto.fromEntity(user))
                 .build();
     }
 
@@ -49,6 +51,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(UserDto.fromEntity(user))
                 .build();
     }
 }
