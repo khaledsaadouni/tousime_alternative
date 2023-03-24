@@ -1,11 +1,11 @@
 package com.tousime_alternative.service.auth;
 
+import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.dto.auth.AuthenticationRequest;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.dto.auth.RegisterRequest;
 import com.tousime_alternative.model.AuthenticationProvider;
 import com.tousime_alternative.model.User;
-import com.tousime_alternative.model.enumr.Role;
 import com.tousime_alternative.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,6 +48,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(UserDto.fromEntity(user))
                 .build();
     }
 
@@ -63,6 +64,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(UserDto.fromEntity(user))
                 .build();
     }
 }

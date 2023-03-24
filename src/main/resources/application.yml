@@ -8,7 +8,7 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       dialect: org.hibernate.dialect.MySQL5Dialect
   security:
     oauth2:
