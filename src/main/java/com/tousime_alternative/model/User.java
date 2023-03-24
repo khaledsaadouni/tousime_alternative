@@ -9,11 +9,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.time.Instant;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
@@ -30,17 +28,19 @@ public class User extends AbstractEntity implements UserDetails {
     private String firstname;
     @Column(length = 8)
     private int phone;
-    @Column(nullable = false)
+    @Column()
     private String password;
     @Column()
     private String photo;
     @Column(nullable = false, unique = true)
     private String email;
     @Column()
-    private Instant birthday;
+    private Date birthday;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+    @Enumerated(EnumType.STRING)
+    private AuthenticationProvider authProvider;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
