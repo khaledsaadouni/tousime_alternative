@@ -5,6 +5,7 @@ import com.tousime_alternative.model.enumr.Role;
 import lombok.Builder;
 import lombok.Data;
 
+import java.sql.Date;
 import java.time.Instant;
 
 @Data
@@ -17,7 +18,7 @@ public class UserDto {
     private String password;
     private String photo;
     private String email;
-    private Instant birthday;
+    private Date birthday;
     private Role role;
 
     public static UserDto fromEntity(User user) {

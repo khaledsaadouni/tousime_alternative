@@ -1,15 +1,13 @@
 package com.tousime_alternative.controller;
 
+import com.tousime_alternative.OAuth2.OAuthUserService;
 import com.tousime_alternative.dto.auth.AuthenticationRequest;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.dto.auth.RegisterRequest;
 import com.tousime_alternative.service.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
+    private final OAuthUserService oAuthUserService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -30,4 +29,10 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }
+    @GetMapping("/oAuth2Token")
+    public ResponseEntity<AuthenticationResponse> getTokenFromAuth2() {
+        AuthenticationResponse response = new AuthenticationResponse(oAuthUserService.getTokenFromOauth2()) ;
+        return ResponseEntity.ok(response);
+    }
+
 }

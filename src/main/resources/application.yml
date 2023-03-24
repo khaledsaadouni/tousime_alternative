@@ -8,6 +8,23 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
       dialect: org.hibernate.dialect.MySQL5Dialect
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 629253409154-sdg7icilei8rkvaj5503mb3gcepcq97n.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
+          facebook:
+            clientId: 993666651618691
+            clientSecret: f3e8bfadb098978e0d80b0371adb13e0
+            scope:
+              - email
+              - public_profile
+              - user_birthday
+              - user_posts
