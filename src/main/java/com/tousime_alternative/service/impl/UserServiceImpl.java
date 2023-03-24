@@ -42,9 +42,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public UserDto findById(Integer id) {
-        return null;
+    public Optional<UserDto> findById(Long id) {
+        return userRepository.findById(id)
+                .map(UserDto::fromEntity)
+                .stream().findFirst();
     }
 
     @Override
@@ -55,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
-
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override

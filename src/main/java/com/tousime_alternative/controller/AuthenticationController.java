@@ -31,7 +31,7 @@ public class AuthenticationController {
     }
     @GetMapping("/oAuth2Token")
     public ResponseEntity<AuthenticationResponse> getTokenFromAuth2() {
-        AuthenticationResponse response = new AuthenticationResponse(oAuthUserService.getTokenFromOauth2()) ;
+        AuthenticationResponse response = new AuthenticationResponse(oAuthUserService.getTokenFromOauth2(), OAuthUserService.getUserFromOuth2());
         return ResponseEntity.ok(response);
     }
 

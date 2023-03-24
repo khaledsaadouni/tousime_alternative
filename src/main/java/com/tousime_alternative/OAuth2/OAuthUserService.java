@@ -1,10 +1,12 @@
 package com.tousime_alternative.OAuth2;
 
+import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.model.AuthenticationProvider;
 import com.tousime_alternative.model.User;
 import com.tousime_alternative.model.enumr.Role;
 import com.tousime_alternative.repository.UserRepository;
+import com.tousime_alternative.service.UserService;
 import com.tousime_alternative.service.auth.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,21 +19,25 @@ import java.time.Instant;
 public class OAuthUserService {
     private final UserRepository repository;
     private static String tokenFromOauth2;
+    private static UserDto user;
     private final JwtService jwtService;
+    private final UserService userService;
 
-    public  String getTokenFromOauth2() {
+    public static UserDto getUserFromOuth2() {
+        return user;
+    }
+
+    public String getTokenFromOauth2() {
         return tokenFromOauth2;
     }
 
-
-
-    public AuthenticationResponse processOAuthPostLogin(String email, String fisrtname, String lastname, String image, String client , String name, String facebookpicture, Date birthday) {
+    public AuthenticationResponse processOAuthPostLogin(String email, String fisrtname, String lastname, String image, String client, String name, String facebookpicture, Date birthday) {
         var user = repository.findByEmail(email);
         System.out.println("**************** user " + user);
-        if(fisrtname==null){
-            String[] splitedname=name.split("\\s+");
-            fisrtname=splitedname[0];
-            lastname=splitedname[1];
+        if (fisrtname == null) {
+            String[] splitedname = name.split("\\s+");
+            fisrtname = splitedname[0];
+            lastname = splitedname[1];
             image=facebookpicture;
         }
         if (!user.isPresent()) {
@@ -48,8 +54,9 @@ public class OAuthUserService {
             newuser.setCreationDate(Instant.now());
             repository.save(newuser);
             var jwtToken = jwtService.generateToken(newuser);
-            this.tokenFromOauth2=jwtToken;
-            System.out.println("++++++++++++ token : * " +jwtToken);
+            this.tokenFromOauth2 = jwtToken;
+            this.user = UserDto.fromEntity(newuser);
+            System.out.println("++++++++++++ token : * " + jwtToken);
             return AuthenticationResponse.builder().token(jwtToken).build();
         }
 
@@ -58,7 +65,8 @@ public class OAuthUserService {
             var user2 = repository.findByEmail(email)
                     .orElseThrow();
             var jwtToken = jwtService.generateToken(user2);
-            this.tokenFromOauth2=jwtToken;
+            this.tokenFromOauth2 = jwtToken;
+            this.user = UserDto.fromEntity(user2);
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .build();
