@@ -1,7 +1,7 @@
 package com.tousime_alternative.service.impl;
 
-import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.dto.UpdatePasswordDto;
+import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.model.User;
 import com.tousime_alternative.repository.UserRepository;
 import com.tousime_alternative.service.UserService;
@@ -47,11 +47,6 @@ public class UserServiceImpl implements UserService {
 
         var user2 = userRepository.save(user);
         return UserDto.fromEntity(user2);
-    }
-
-    @Override
-    public UserDto save(UserDto dto) {
-        return null;
     }
 
     public Optional<UserDto> findById(Long id) {

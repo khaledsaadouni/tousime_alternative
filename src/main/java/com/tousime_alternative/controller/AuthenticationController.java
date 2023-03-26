@@ -4,6 +4,7 @@ import com.tousime_alternative.OAuth2.OAuthUserService;
 import com.tousime_alternative.dto.auth.AuthenticationRequest;
 import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import com.tousime_alternative.dto.auth.RegisterRequest;
+import com.tousime_alternative.dto.auth.RegisterRequestPartner;
 import com.tousime_alternative.service.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,21 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(service.register(request));
     }
+
+    @PostMapping("/registerPartner")
+    public ResponseEntity<AuthenticationResponse> registerPartner(
+            @RequestBody RegisterRequestPartner request
+    ) {
+        return ResponseEntity.ok(service.registerPartner(request));
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }
+
     @GetMapping("/oAuth2Token")
     public ResponseEntity<AuthenticationResponse> getTokenFromAuth2() {
         AuthenticationResponse response = new AuthenticationResponse(oAuthUserService.getTokenFromOauth2(), OAuthUserService.getUserFromOuth2());
