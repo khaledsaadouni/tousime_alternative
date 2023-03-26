@@ -1,5 +1,6 @@
 package com.tousime_alternative.controller;
 
+import com.tousime_alternative.dto.UpdatePasswordDto;
 import com.tousime_alternative.dto.UserDto;
 import com.tousime_alternative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class UserController {
     @DeleteMapping("/delete/{idUser}")
     public void delete(@PathVariable("idUser") Long id) {
         userService.delete(id);
+    }
+    @PostMapping("/updatePassword")
+    public ResponseEntity<UserDto> updatePassword(@RequestBody UpdatePasswordDto dto){
+        return ResponseEntity.ok(userService.updatePassword(dto));
     }
 }

@@ -1,7 +1,7 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.UserDto;
-import com.tousime_alternative.dto.auth.UpdatePasswordDto;
+import com.tousime_alternative.dto.UpdatePasswordDto;
 import com.tousime_alternative.model.User;
 import com.tousime_alternative.repository.UserRepository;
 import com.tousime_alternative.service.UserService;
@@ -34,7 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-        return UserDto.fromEntity(userRepository.save(UserDto.toEntity(dto)));
+       // ;
+        User user= userRepository.findById(dto.getId()).orElseThrow();
+        user.setLastname(dto.getLastname());
+        user.setFirstname(dto.getFirstname());
+        user.setEmail(dto.getEmail());
+        user.setBirthday(dto.getBirthday());
+        user.setRole(dto.getRole());
+        user.setPhoto(dto.getPhoto());
+        user.setPhone(dto.getPhone());
+
+
+        var user2 = userRepository.save(user);
+        return UserDto.fromEntity(user2);
     }
 
     @Override
@@ -62,11 +74,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findByEmail(String email) {
-        return null;
+        return UserDto.fromEntity(userRepository.findByEmail(email).orElseThrow());
     }
 
     @Override
     public UserDto updatePassword(UpdatePasswordDto dto) {
-        return null;
+        User user= userRepository.findById(dto.getId()).orElseThrow();
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user=userRepository.save(user);
+        return  UserDto.fromEntity(user);
     }
 }

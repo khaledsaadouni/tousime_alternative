@@ -2,7 +2,7 @@ package com.tousime_alternative.service;
 
 
 import com.tousime_alternative.dto.UserDto;
-import com.tousime_alternative.dto.auth.UpdatePasswordDto;
+import com.tousime_alternative.dto.UpdatePasswordDto;
 
 import java.util.List;
 import java.util.Optional;

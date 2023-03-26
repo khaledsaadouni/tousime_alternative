@@ -15,7 +15,6 @@ public class UserDto {
     private String lastname;
     private String firstname;
     private int phone;
-    private String password;
     private String photo;
     private String email;
     private Date birthday;
@@ -30,7 +29,6 @@ public class UserDto {
                 .id(user.getId())
                 .lastname(user.getLastname())
                 .firstname(user.getFirstname())
-                .password(user.getPassword())
                 .phone(user.getPhone())
                 .photo(user.getPhoto())
                 .email(user.getEmail())
@@ -49,7 +47,6 @@ public class UserDto {
         user.setLastname(dto.getLastname());
         user.setFirstname(dto.getFirstname());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
         user.setBirthday(dto.getBirthday());
         user.setRole(dto.getRole());
         user.setPhoto(dto.getPhoto());
