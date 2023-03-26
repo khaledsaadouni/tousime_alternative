@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class PartnerServiceImpl implements PartnerService {
         user.setPhone(dto.getPhone());
         user.setCommercial_name(dto.getCommercial_name());
         user.setAddress(dto.getAddress());
+        user.setLastModifiedDate(Instant.now());
         var user2 = partnerRepository.save(user);
         return PartnerDto.fromEntity(user2);
     }
@@ -73,6 +75,7 @@ public class PartnerServiceImpl implements PartnerService {
     public PartnerDto updatePassword(UpdatePasswordDto dto) {
         Partner user = partnerRepository.findById(dto.getId()).orElseThrow();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setLastModifiedDate(Instant.now());
         user = partnerRepository.save(user);
         return PartnerDto.fromEntity(user);
     }

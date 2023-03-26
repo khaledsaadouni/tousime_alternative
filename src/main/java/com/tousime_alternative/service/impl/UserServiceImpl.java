@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-       // ;
         User user= userRepository.findById(dto.getId()).orElseThrow();
         user.setLastname(dto.getLastname());
         user.setFirstname(dto.getFirstname());
@@ -43,8 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(dto.getRole());
         user.setPhoto(dto.getPhoto());
         user.setPhone(dto.getPhone());
-
-
+        user.setLastModifiedDate(Instant.now());
         var user2 = userRepository.save(user);
         return UserDto.fromEntity(user2);
     }
@@ -76,7 +75,8 @@ public class UserServiceImpl implements UserService {
     public UserDto updatePassword(UpdatePasswordDto dto) {
         User user= userRepository.findById(dto.getId()).orElseThrow();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user=userRepository.save(user);
+        user.setLastModifiedDate(Instant.now());
+        user = userRepository.save(user);
         return  UserDto.fromEntity(user);
     }
 }
