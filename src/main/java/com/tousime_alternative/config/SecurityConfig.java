@@ -58,7 +58,7 @@ public class SecurityConfig {
                         CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
                         System.out.println("****************** user "+oauthUser.getAttributes());
                         oAuthUserService.processOAuthPostLogin(oauthUser.getEmail(),oauthUser.fisrtName(),oauthUser.LastName(),oauthUser.Image(),oauthUser.client(),oauthUser.getName(),oauthUser.getImageFromFacebook(),oauthUser.getbirthday());
-                        response.sendRedirect("/api/v1/auth/oAuth2Token");
+                        response.sendRedirect("http://localhost:3000/");
                     }
                 })
                 .and()
