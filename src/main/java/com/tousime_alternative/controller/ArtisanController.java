@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController()
-@RequestMapping("/api/artisan")
+@RequestMapping("/api/v1/artisan")
 public class ArtisanController {
     private ArtisanService artisanService;
 
