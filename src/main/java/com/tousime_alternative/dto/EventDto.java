@@ -33,6 +33,7 @@ public class EventDto {
                 .id(event.getId())
                 .name(event.getName())
                 .capacity(event.getCapacity())
+                .description(event.getDescription())
                 .emplacement(event.getEmplacement())
                 .photo(event.getPhoto())
                 .socialMediaLink(event.getSocialMediaLinks())
@@ -53,6 +54,7 @@ public class EventDto {
         Event event = new Event();
         event.setId(dto.getId());
         event.setName(dto.getName());
+        event.setDescription(dto.getDescription());
         event.setCapacity(dto.getCapacity());
         event.setEmplacement(dto.getEmplacement());
         event.setPhoto(dto.getPhoto());

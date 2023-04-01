@@ -34,6 +34,7 @@ public class AccomodationDto {
                 .id(accomodation.getId())
                 .name(accomodation.getName())
                 .capacity(accomodation.getCapacity())
+                .description(accomodation.getDescription())
                 .emplacement(accomodation.getEmplacement())
                 .photo(accomodation.getPhoto())
                 .socialMediaLink(accomodation.getSocialMediaLinks())
@@ -53,6 +54,7 @@ public class AccomodationDto {
 
         Accomodation accomodation = new Accomodation();
         accomodation.setId(dto.getId());
+        accomodation.setDescription(dto.getDescription());
         accomodation.setName(dto.getName());
         accomodation.setCapacity(dto.getCapacity());
         accomodation.setEmplacement(dto.getEmplacement());

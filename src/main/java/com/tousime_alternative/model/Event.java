@@ -1,6 +1,9 @@
 package com.tousime_alternative.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.sql.Date;
@@ -32,10 +35,6 @@ public class Event extends Offer {
     @CollectionTable(name = "table_social_Media_Links_events")
     @Column()
     private List<String> socialMediaLinks;
-
-    @ManyToOne()
-    @JoinColumn(name = "idPartner")
-    private Partner partner;
 
 
 }

@@ -1,11 +1,9 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.ArtisanDto;
-import com.tousime_alternative.dto.ReservationDto;
 import com.tousime_alternative.model.Artisan;
-import com.tousime_alternative.model.Reservation;
 import com.tousime_alternative.repository.ArtisanRepository;
-import com.tousime_alternative.repository.ReservationRepository;
+import com.tousime_alternative.repository.PartnerRepository;
 import com.tousime_alternative.service.ArtisanService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +17,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ArtisanServiceImpl implements ArtisanService {
     private ArtisanRepository artisanRepository;
+    private PartnerRepository partnerRepository;
 
     @Autowired
-    public ArtisanServiceImpl(ArtisanRepository artisanRepository) {
+    public ArtisanServiceImpl(ArtisanRepository artisanRepository, PartnerRepository partnerRepository) {
         this.artisanRepository = artisanRepository;
-
+        this.partnerRepository = partnerRepository;
     }
+
+
     @Override
     public ArtisanDto update(ArtisanDto artisanDto) {
-        Artisan artisan= artisanRepository.findById(artisanDto.getId()).orElseThrow();
-        artisan.setEmplacement(artisanDto.getEmplacement());
-        artisan.setHeure_ouverture(artisanDto.getHeure_ouverture());
-        artisan.setHeure_fermeture(artisanDto.getHeure_fermeture());
-        artisan.setNom_commercial(artisanDto.getNom_commercial());
-        artisan.setPhoto(artisanDto.getPhoto());
-        artisan.setType(artisanDto.getType());
+        Artisan artisan = ArtisanDto.toEntity(artisanDto);
         artisan.setLastModifiedDate(Instant.now());
         return ArtisanDto.fromEntity(artisanRepository.save(artisan));
     }
@@ -58,7 +53,10 @@ public class ArtisanServiceImpl implements ArtisanService {
     }
 
     @Override
-    public ArtisanDto createArtisan(ArtisanDto artisanDto) {
-        return ArtisanDto.fromEntity(artisanRepository.save(ArtisanDto.toEntity(artisanDto)));
+    public ArtisanDto createArtisan(ArtisanDto artisanDto, long id) {
+        Artisan artisan = ArtisanDto.toEntity(artisanDto);
+        artisan.setCreationDate(Instant.now());
+        artisan.setPartner(partnerRepository.findById(id).orElseThrow());
+        return ArtisanDto.fromEntity(artisanRepository.save(artisan));
     }
 }

@@ -21,10 +21,7 @@ public class Partner extends User {
     @Column(length = 100)
     private String address;
     @OneToMany(mappedBy = "partner")
-    private List<Accomodation> accomodations;
+    private List<Offer> offers;
     @OneToMany(mappedBy = "partner")
-    private List<Event> events;
-    @OneToMany(mappedBy = "partner")
-    private List<Restoration> restorations;
-
+    private List<Artisan> artisans;
 }

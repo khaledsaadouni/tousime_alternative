@@ -1,14 +1,11 @@
 package com.tousime_alternative.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 @Data
-@MappedSuperclass
+@Entity
 public class Offer {
     @Id
     @GeneratedValue
@@ -25,7 +22,9 @@ public class Offer {
 
     @Column()
     private String type;
-
+    @ManyToOne()
+    @JoinColumn(name = "idPartner")
+    private Partner partner;
 
 //    @OneToOne
 //    private Reservation reservation;

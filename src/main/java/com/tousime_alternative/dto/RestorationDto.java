@@ -34,6 +34,7 @@ public class RestorationDto {
         return RestorationDto.builder()
                 .id(restauration.getId())
                 .name(restauration.getName())
+                .description(restauration.getDescription())
                 .capacity(restauration.getCapacity())
                 .emplacement(restauration.getEmplacement())
                 .photo(restauration.getPhoto())
@@ -53,6 +54,7 @@ public class RestorationDto {
 
         Restoration restauration = new Restoration();
         restauration.setId(dto.getId());
+        restauration.setDescription(dto.getDescription());
         restauration.setName(dto.getName());
         restauration.setCapacity(dto.getCapacity());
         restauration.setEmplacement(dto.getEmplacement());

@@ -7,10 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController()
-@RequestMapping("/api/v1/artisan")
+@RequestMapping("/api/artisan")
 public class ArtisanController {
     private ArtisanService artisanService;
 
@@ -25,18 +23,21 @@ public class ArtisanController {
         return artisanService.findAll();
     }
 
-    @GetMapping("/findById/{id}")
-    public Optional<ArtisanDto> findById(@PathVariable("id") Long id) {
-        return artisanService.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ArtisanDto> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(artisanService.findById(id).orElseThrow());
     }
+
     @PatchMapping("/update")
-    public ResponseEntity<ArtisanDto> update(@RequestBody ArtisanDto reservationDto) {
-        return ResponseEntity.ok(artisanService.update(reservationDto));
+    public ResponseEntity<ArtisanDto> update(@RequestBody ArtisanDto artisanDto) {
+        return ResponseEntity.ok(artisanService.update(artisanDto));
     }
-    @PostMapping("/create/{artisan}")
-    public ArtisanDto createArtisan(@PathVariable("artisan") ArtisanDto artisanDto) {
-        return artisanService.createArtisan(artisanDto);
+
+    @PostMapping("/add/{idPartner}")
+    public ResponseEntity<ArtisanDto> createArtisan(@RequestBody ArtisanDto artisanDto, @PathVariable("idPartner") long id) {
+        return ResponseEntity.ok(artisanService.createArtisan(artisanDto, id));
     }
+
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
         artisanService.delete(id);

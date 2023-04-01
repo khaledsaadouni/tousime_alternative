@@ -35,8 +35,4 @@ public class Accomodation extends Offer {
     private float price;
     @Column(length = 8)
     private float promotion;
-    @ManyToOne()
-    @JoinColumn(name = "idPartner")
-    private Partner partner;
-
 }

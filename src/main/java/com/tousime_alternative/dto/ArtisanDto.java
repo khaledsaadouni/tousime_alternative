@@ -5,17 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @Builder
 public class ArtisanDto {
     private long id;
     private String Emplacement;
-    private LocalTime Heure_ouverture;
-    private LocalTime Heure_fermeture;
-    private String nom_commercial;
-    private String photo;
-    private String type ;
+    private LocalTime opening_hour;
+    private LocalTime closing_hour;
+    private String commercial_name;
+    private List<String> photo;
+    private String type;
+    private List<ArticalDto> articals;
+    private PartnerDto partner;
+
     public static ArtisanDto fromEntity(Artisan artisan) {
         if (artisan == null) {
             return null;
@@ -24,11 +28,13 @@ public class ArtisanDto {
         return ArtisanDto.builder()
                 .id(artisan.getId())
                 .Emplacement(artisan.getEmplacement())
-                .Heure_ouverture(artisan.getHeure_ouverture())
-                .Heure_fermeture(artisan.getHeure_fermeture())
-                .nom_commercial(artisan.getNom_commercial())
+                .opening_hour(artisan.getOpening_hour())
+                .closing_hour(artisan.getClosing_hour())
+                .commercial_name(artisan.getCommercial_name())
                 .photo(artisan.getPhoto())
                 .type(artisan.getType())
+//                .articals(artisan.getArticals().stream().map(ArticalDto::fromEntity).collect(Collectors.toList()))
+//                .partner(PartnerDto.fromEntity(artisan.getPartner()))
                 .build();
     }
     public static Artisan toEntity(ArtisanDto artisanDto) {
@@ -39,9 +45,9 @@ public class ArtisanDto {
         Artisan artisan = new Artisan();
         artisan.setId(artisanDto.getId());
         artisan.setEmplacement(artisanDto.getEmplacement());
-        artisan.setHeure_ouverture(artisanDto.getHeure_ouverture());
-        artisan.setHeure_fermeture(artisanDto.getHeure_fermeture());
-        artisan.setNom_commercial(artisanDto.getNom_commercial());
+        artisan.setOpening_hour(artisanDto.getOpening_hour());
+        artisan.setClosing_hour(artisanDto.getClosing_hour());
+        artisan.setCommercial_name(artisanDto.getCommercial_name());
         artisan.setPhoto(artisanDto.getPhoto());
         artisan.setType(artisanDto.getType());
         return artisan;

@@ -1,6 +1,9 @@
 package com.tousime_alternative.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.time.Instant;
@@ -27,8 +30,4 @@ public class Restoration extends Offer {
     private Instant closing;
     @Column()
     private String menu;
-
-    @ManyToOne()
-    @JoinColumn(name = "idPartner")
-    private Partner partner;
 }
