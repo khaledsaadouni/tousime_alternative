@@ -3,7 +3,7 @@ package com.tousime_alternative.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -12,30 +12,23 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event extends Offer {
-    @Column()
-    private Date eventDate;
-
-    @Column()
-    private String duration;
-    @Column()
-    private float price;
+public class Restoration extends Offer {
     @ElementCollection
-    @CollectionTable(name = "table_regulations_event")
-    @Column()
-    private List<String> regulations;
-    @ElementCollection
-    @CollectionTable(name = "table_photos_events")
+    @CollectionTable(name = "table_photos_resto")
     @Column()
     private List<String> photo;
     @ElementCollection
-    @CollectionTable(name = "table_social_Media_Links_events")
+    @CollectionTable(name = "table_social_Media_Links_resto")
     @Column()
     private List<String> socialMediaLinks;
+    @Column()
+    private Instant opening;
+    @Column()
+    private Instant closing;
+    @Column()
+    private String menu;
 
     @ManyToOne()
     @JoinColumn(name = "idPartner")
     private Partner partner;
-
-
 }

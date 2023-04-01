@@ -1,0 +1,68 @@
+package com.tousime_alternative.dto;
+
+import com.tousime_alternative.model.Restoration;
+import lombok.Builder;
+import lombok.Data;
+
+import java.time.Instant;
+import java.util.List;
+
+@Data
+@Builder
+public class RestorationDto {
+    private long id;
+    private Instant creationDate;
+    private int capacity;
+    private String description;
+    private String emplacement;
+    private String name;
+    private List<String> photo;
+    private List<String> socialMediaLink;
+    private String type;
+    private Instant opening;
+    private Instant closing;
+    private String menu;
+
+    //private List<ReviewDto> reviews;
+    private PartnerDto partner;
+
+    public static RestorationDto fromEntity(Restoration restauration) {
+        if (restauration == null) {
+            return null;
+        }
+
+        return RestorationDto.builder()
+                .id(restauration.getId())
+                .name(restauration.getName())
+                .capacity(restauration.getCapacity())
+                .emplacement(restauration.getEmplacement())
+                .photo(restauration.getPhoto())
+                .socialMediaLink(restauration.getSocialMediaLinks())
+                .type(restauration.getType())
+                .opening(restauration.getOpening())
+                .closing(restauration.getClosing())
+                .menu(restauration.getMenu())
+                .partner(PartnerDto.fromEntity(restauration.getPartner()))
+                .build();
+    }
+
+    public static Restoration toEntity(RestorationDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Restoration restauration = new Restoration();
+        restauration.setId(dto.getId());
+        restauration.setName(dto.getName());
+        restauration.setCapacity(dto.getCapacity());
+        restauration.setEmplacement(dto.getEmplacement());
+        restauration.setPhoto(dto.getPhoto());
+        restauration.setSocialMediaLinks(dto.getSocialMediaLink());
+        restauration.setType(dto.getType());
+        restauration.setClosing(dto.getClosing());
+        restauration.setOpening(dto.getOpening());
+        restauration.setMenu(dto.getMenu());
+
+        return restauration;
+    }
+}

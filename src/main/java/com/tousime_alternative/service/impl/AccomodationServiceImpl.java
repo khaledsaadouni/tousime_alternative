@@ -3,36 +3,34 @@ package com.tousime_alternative.service.impl;
 import com.tousime_alternative.dto.AccomodationDto;
 import com.tousime_alternative.model.Accomodation;
 import com.tousime_alternative.repository.AccomodationRepository;
+import com.tousime_alternative.repository.PartnerRepository;
 import com.tousime_alternative.service.AccomodationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
+@Slf4j
 public class AccomodationServiceImpl implements AccomodationService {
     private AccomodationRepository accomodationRepository;
+    private PartnerRepository partnerRepository;
+
     @Autowired
-    public AccomodationServiceImpl(AccomodationRepository accomodationRepository) {
+    public AccomodationServiceImpl(AccomodationRepository accomodationRepository,
+                                   PartnerRepository partnerRepository) {
         this.accomodationRepository = accomodationRepository;
+        this.partnerRepository = partnerRepository;
 
     }
+
     @Override
     public AccomodationDto update(AccomodationDto dto) {
-        Accomodation accomodation= accomodationRepository.findById(dto.getId()).orElseThrow();
-        accomodation.setId(dto.getId());
-        accomodation.setName(dto.getName());
-        accomodation.setCapacity(dto.getCapacity());
-        accomodation.setEmplacement(dto.getEmplacement());
-        accomodation.setPhoto(dto.getPhoto());
-        accomodation.setSocialMediaLink(dto.getSocialMediaLink());
-        accomodation.setPhoto(dto.getType());
-        accomodation.setComodityList(dto.getComodityList());
-        accomodation.setRegulations(dto.getRegulations());
-        accomodation.setPrice(dto.getPrice());
-        accomodation.setPromotion(dto.getPromotion());
-        var accomodationr= accomodationRepository.save(accomodation);
-        return AccomodationDto.fromEntity(accomodationr);
+        Accomodation accomodation = AccomodationDto.toEntity(dto);
+        return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
     }
 
     @Override
@@ -52,20 +50,9 @@ public class AccomodationServiceImpl implements AccomodationService {
 
 
     @Override
-    public AccomodationDto createAccomodation(AccomodationDto dto) {
-        Accomodation accomodation=new Accomodation();
-        accomodation.setId(dto.getId());
-        accomodation.setName(dto.getName());
-        accomodation.setCapacity(dto.getCapacity());
-        accomodation.setEmplacement(dto.getEmplacement());
-        accomodation.setPhoto(dto.getPhoto());
-        accomodation.setSocialMediaLink(dto.getSocialMediaLink());
-        accomodation.setPhoto(dto.getType());
-        accomodation.setComodityList(dto.getComodityList());
-        accomodation.setRegulations(dto.getRegulations());
-        accomodation.setPrice(dto.getPrice());
-        accomodation.setPromotion(dto.getPromotion());
-        var o= accomodationRepository.save(accomodation);
-        return AccomodationDto.fromEntity(o);
+    public AccomodationDto createAccomodation(AccomodationDto dto, long id) {
+        Accomodation accomodation = AccomodationDto.toEntity(dto);
+        accomodation.setPartner(partnerRepository.findById(id).orElseThrow());
+        return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
     }
 }

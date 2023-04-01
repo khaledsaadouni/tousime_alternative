@@ -15,6 +15,6 @@ public interface EventService {
     void delete(Long id);
 
 
-    EventDto createEvent(EventDto dto);
+    EventDto createEvent(EventDto dto, long id);
 
 }

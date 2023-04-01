@@ -15,5 +15,5 @@ public interface AccomodationService {
     void delete(Long id);
 
 
-    AccomodationDto createAccomodation(AccomodationDto dto);
+    AccomodationDto createAccomodation(AccomodationDto dto, long id);
 }

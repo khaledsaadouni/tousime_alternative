@@ -5,21 +5,24 @@ import com.tousime_alternative.model.enumr.ComodityList;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class AccomodationDto {
     private long id;
-    private int  capacity;
+    private int capacity;
     private String description;
     private String emplacement;
     private String name;
-    private String photo;
-    private String socialMediaLink;
+    private List<String> photo;
+    private List<String> socialMediaLink;
     private String type;
-    private ComodityList comodityList;
-    private String regulations;
-    private int  price;
-    private int  promotion;
+    private List<ComodityList> comodityList;
+    private List<String> regulations;
+    private float price;
+    private float promotion;
+    private PartnerDto partner;
 
 
     public static AccomodationDto fromEntity(Accomodation accomodation) {
@@ -33,12 +36,13 @@ public class AccomodationDto {
                 .capacity(accomodation.getCapacity())
                 .emplacement(accomodation.getEmplacement())
                 .photo(accomodation.getPhoto())
-                .socialMediaLink(accomodation.getSocialMediaLink())
+                .socialMediaLink(accomodation.getSocialMediaLinks())
                 .type(accomodation.getType())
                 .comodityList(accomodation.getComodityList())
                 .regulations(accomodation.getRegulations())
                 .price(accomodation.getPrice())
                 .promotion(accomodation.getPromotion())
+                .partner(PartnerDto.fromEntity(accomodation.getPartner()))
                 .build();
     }
 
@@ -53,8 +57,8 @@ public class AccomodationDto {
         accomodation.setCapacity(dto.getCapacity());
         accomodation.setEmplacement(dto.getEmplacement());
         accomodation.setPhoto(dto.getPhoto());
-        accomodation.setSocialMediaLink(dto.getSocialMediaLink());
-        accomodation.setPhoto(dto.getType());
+        accomodation.setSocialMediaLinks(dto.getSocialMediaLink());
+        accomodation.setType(dto.getType());
         accomodation.setComodityList(dto.getComodityList());
         accomodation.setRegulations(dto.getRegulations());
         accomodation.setPrice(dto.getPrice());

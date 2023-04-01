@@ -1,29 +1,34 @@
 package com.tousime_alternative.controller;
 
 import com.tousime_alternative.dto.AccomodationDto;
-import com.tousime_alternative.model.Accomodation;
 import com.tousime_alternative.service.AccomodationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 @RestController()
 @RequestMapping("/api/v1/accomodation")
 public class AccomodationController {
     private AccomodationService accomodationService;
-    @PostMapping("/add")
-    public ResponseEntity<Accomodation> add(@RequestBody AccomodationDto dto){
-        return new ResponseEntity(accomodationService.createAccomodation(dto), CREATED);
-    }
+
     public AccomodationController(AccomodationService accomodationService) {
         this.accomodationService = accomodationService;
     }
+
+    @PostMapping("/add/{idPartner}")
+    public ResponseEntity<AccomodationDto> add(@RequestBody AccomodationDto dto, @PathVariable("idPartner") long id) {
+        return ResponseEntity.ok(accomodationService.createAccomodation(dto, id));
+    }
+
     @GetMapping("/all")
     public List<AccomodationDto> findAll() {
         return accomodationService.findAll();
+    }
+
+    @GetMapping("/{idAccom}")
+    public ResponseEntity<AccomodationDto> findById(@PathVariable("idAccom") long id) {
+        return ResponseEntity.ok(accomodationService.findById(id).orElseThrow());
     }
 
     @PostMapping("/update")
@@ -32,7 +37,7 @@ public class AccomodationController {
     }
 
     @DeleteMapping("/delete/{idAccomodation}")
-    public void delete(@PathVariable("idAccomodation") Long id) {
+    public void delete(@PathVariable("idAccomodation") long id) {
         accomodationService.delete(id);
     }
 }

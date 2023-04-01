@@ -5,6 +5,7 @@ import com.tousime_alternative.dto.UpdatePasswordDto;
 import com.tousime_alternative.model.Partner;
 import com.tousime_alternative.repository.PartnerRepository;
 import com.tousime_alternative.service.PartnerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PartnerServiceImpl implements PartnerService {
     private PasswordEncoder passwordEncoder;
     private PartnerRepository partnerRepository;

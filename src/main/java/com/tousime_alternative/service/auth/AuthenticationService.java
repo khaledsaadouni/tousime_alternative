@@ -9,6 +9,7 @@ import com.tousime_alternative.dto.auth.RegisterRequestPartner;
 import com.tousime_alternative.model.AuthenticationProvider;
 import com.tousime_alternative.model.Partner;
 import com.tousime_alternative.model.User;
+import com.tousime_alternative.model.enumr.Role;
 import com.tousime_alternative.repository.PartnerRepository;
 import com.tousime_alternative.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -85,9 +86,17 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .user(user)
-                .build();
+        if (user.getRole() == Role.Partner) {
+            var partner = partnerRepository.findByEmail(request.getEmail()).orElseThrow();
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .user(PartnerDto.fromEntity(partner))
+                    .build();
+        } else {
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .user(UserDto.fromEntity(user))
+                    .build();
+        }
     }
 }

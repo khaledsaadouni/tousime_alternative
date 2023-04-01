@@ -1,37 +1,36 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.EventDto;
-import com.tousime_alternative.repository.EventRepository;
-import com.tousime_alternative.service.EventService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import com.tousime_alternative.model.Event;
+import com.tousime_alternative.repository.EventRepository;
+import com.tousime_alternative.repository.PartnerRepository;
+import com.tousime_alternative.service.EventService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
+@Slf4j
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
+    private PartnerRepository partnerRepository;
+
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository,
+                            PartnerRepository partnerRepository) {
         this.eventRepository = eventRepository;
+        this.partnerRepository = partnerRepository;
 
     }
+
     @Override
     public EventDto update(EventDto dto) {
-        Event event= eventRepository.findById(dto.getId()).orElseThrow();
-        event.setId(dto.getId());
-        event.setName(dto.getName());
-        event.setCapacity(dto.getCapacity());
-        event.setEmplacement(dto.getEmplacement());
-        event.setPhoto(dto.getPhoto());
-        event.setSocialMediaLink(dto.getSocialMediaLink());
-        event.setPhoto(dto.getType());
-        event.setEventDate(dto.getEventDate());
-        event.setRegulations(dto.getRegulations());
-        event.setDuration(dto.getDuration());
-        var eventr= eventRepository.save(event);
-        return EventDto.fromEntity(eventr);
+        Event event = EventDto.toEntity(dto);
+        return EventDto.fromEntity(eventRepository.save(event));
     }
 
     @Override
@@ -51,19 +50,9 @@ public class EventServiceImpl implements EventService {
 
 
     @Override
-    public EventDto createEvent(EventDto dto) {
-        Event event=new Event();
-        event.setId(dto.getId());
-        event.setName(dto.getName());
-        event.setCapacity(dto.getCapacity());
-        event.setEmplacement(dto.getEmplacement());
-        event.setPhoto(dto.getPhoto());
-        event.setSocialMediaLink(dto.getSocialMediaLink());
-        event.setPhoto(dto.getType());
-        event.setEventDate(dto.getEventDate());
-        event.setRegulations(dto.getRegulations());
-        event.setDuration(dto.getDuration());
-        var o= eventRepository.save(event);
-        return EventDto.fromEntity(o);
+    public EventDto createEvent(EventDto dto, long id) {
+        Event event = EventDto.toEntity(dto);
+        event.setPartner(partnerRepository.findById(id).orElseThrow());
+        return EventDto.fromEntity(eventRepository.save(event));
     }
 }
