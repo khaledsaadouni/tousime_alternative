@@ -8,7 +8,7 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       dialect: org.hibernate.dialect.MySQL5Dialect
   security:
     oauth2:
@@ -31,3 +31,8 @@ spring:
 cors:
   allowed:
     origins=*:
+flickr:
+  apiKey: 388b4a070b8943c7b1878ba9fd2e9f77
+  apiSecret: 5604a75bcef0767f
+  appKey: 72157720878005563-289b4c10e2c8792c
+  appSecret: 1b53a3d49f62a84d

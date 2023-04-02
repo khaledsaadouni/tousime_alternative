@@ -1,14 +1,12 @@
 package com.tousime_alternative.model;
 
 import com.tousime_alternative.model.enumr.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
@@ -39,6 +37,11 @@ public class User extends AbstractEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservations;
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
     @Enumerated(EnumType.STRING)
     private AuthenticationProvider authProvider;
 

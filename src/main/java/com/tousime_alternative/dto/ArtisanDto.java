@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -33,8 +34,8 @@ public class ArtisanDto {
                 .commercial_name(artisan.getCommercial_name())
                 .photo(artisan.getPhoto())
                 .type(artisan.getType())
-//                .articals(artisan.getArticals().stream().map(ArticalDto::fromEntity).collect(Collectors.toList()))
-//                .partner(PartnerDto.fromEntity(artisan.getPartner()))
+                .articals(artisan.getArticals().stream().map(ArticalDto::fromEntity).collect(Collectors.toList()))
+                .partner(PartnerDto.fromEntity(artisan.getPartner()))
                 .build();
     }
     public static Artisan toEntity(ArtisanDto artisanDto) {

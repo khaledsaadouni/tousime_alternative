@@ -41,8 +41,8 @@ public class ArticalServiceImpl implements ArticalService {
     }
 
     @Override
-    public List<ArticalDto> findAll() {
-        return articalRepository.findAll()
+    public List<ArticalDto> findAllByShop(long id) {
+        return articalRepository.findAllByArtisanId(id)
                 .stream()
                 .map(ArticalDto::fromEntity)
                 .collect(Collectors.toList());

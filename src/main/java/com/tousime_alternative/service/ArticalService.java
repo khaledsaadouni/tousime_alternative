@@ -10,7 +10,7 @@ public interface ArticalService {
 
     Optional<ArticalDto> findById(Long id);
 
-    List<ArticalDto> findAll();
+    List<ArticalDto> findAllByShop(long id);
 
     void delete(Long id);
 

@@ -19,8 +19,8 @@ public class ArticalController {
     }
 
     @GetMapping("/all/{idShop}")
-    public List<ArticalDto> findAll() {
-        return articalService.findAll();
+    public List<ArticalDto> findAllByShop(@PathVariable("idShop") long id) {
+        return articalService.findAllByShop(id);
     }
 
     @GetMapping("/{id}")
