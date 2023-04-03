@@ -37,7 +37,6 @@ public class FlickrServiceImpl implements FlickrService {
         connect();
         UploadMetaData uploadMetaData = new UploadMetaData();
         uploadMetaData.setTitle(title);
-
         String photoId = flickr.getUploader().upload(photo, uploadMetaData);
         return flickr.getPhotosInterface().getPhoto(photoId).getMedium640Url();
     }

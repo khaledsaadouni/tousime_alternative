@@ -28,7 +28,7 @@ public class AccomodationController {
 
     @GetMapping("/{idAccom}")
     public ResponseEntity<AccomodationDto> findById(@PathVariable("idAccom") long id) {
-        return ResponseEntity.ok(accomodationService.findById(id).orElseThrow());
+        return ResponseEntity.ok(accomodationService.findById(id));
     }
 
     @PostMapping("/update")

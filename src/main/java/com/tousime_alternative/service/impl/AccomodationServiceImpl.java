@@ -34,8 +34,8 @@ public class AccomodationServiceImpl implements AccomodationService {
     }
 
     @Override
-    public Optional<AccomodationDto> findById(Long id) {
-        return accomodationRepository.findById(id).map(AccomodationDto::fromEntity).stream().findFirst();
+    public AccomodationDto  findById(Long id) {
+        return accomodationRepository.findById(id).map(AccomodationDto::fromEntity).orElseThrow();
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AccomodationService {
     AccomodationDto update(AccomodationDto dto);
 
-    Optional<AccomodationDto> findById(Long id);
+    AccomodationDto findById(Long id);
 
     List<AccomodationDto> findAll();
 
