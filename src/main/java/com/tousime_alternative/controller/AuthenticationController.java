@@ -45,5 +45,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/deleteoAuth2Token")
+    public void deleteTokenFromAuth2() {
+        oAuthUserService.deleteOAuthPostLogin();
+    }
+
 
 }

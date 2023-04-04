@@ -73,4 +73,9 @@ public class OAuthUserService {
         }
     }
 
+    public void deleteOAuthPostLogin() {
+        tokenFromOauth2 = "";
+        user = null;
+    }
+
 }

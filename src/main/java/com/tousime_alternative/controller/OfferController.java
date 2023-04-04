@@ -39,6 +39,11 @@ public class OfferController {
         return offerService.findRecent();
     }
 
+    @GetMapping("/mostliked")
+    public List<OfferDto> mostliked() {
+        return offerService.findMostLiked();
+    }
+
     @PostMapping("/update")
     public ResponseEntity<OfferDto> update(@RequestBody OfferDto user) {
         return ResponseEntity.ok(offerService.update(user));

@@ -50,7 +50,7 @@ public class RestorationDto {
                 .destination(restauration.getDestination())
                 .partner(PartnerDto.fromEntity(restauration.getPartner()))
                 .creationDate(restauration.getCreationDate())
-                .reviews(restauration.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
+                .reviews(restauration.getReviews() != null ? restauration.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 

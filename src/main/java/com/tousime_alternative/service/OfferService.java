@@ -14,6 +14,8 @@ public interface OfferService {
 
     List<OfferDto> findRecent();
 
+    List<OfferDto> findMostLiked();
+
     List<OfferDto> findBYPartnerID(long id);
 
     void delete(Long id);

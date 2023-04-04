@@ -51,7 +51,7 @@ public class EventDto {
                 .price(event.getPrice())
                 .destination(event.getDestination())
                 .creationDate(event.getCreationDate())
-                .reviews(event.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
+                .reviews(event.getReviews() != null ? event.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 

@@ -45,6 +45,11 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public List<OfferDto> findMostLiked() {
+        return offerRepository.findTop6ByOrderByReviewsDesc().stream().map(OfferDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
     public List<OfferDto> findBYPartnerID(long id) {
         return offerRepository.findAllByPartnerId(id).stream().map(OfferDto::fromEntity).collect(Collectors.toList());
     }

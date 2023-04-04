@@ -51,7 +51,7 @@ public class AccomodationDto {
                 .partner(PartnerDto.fromEntity(accomodation.getPartner()))
                 .destination(accomodation.getDestination())
                 .creationDate(accomodation.getCreationDate())
-                .reviews(accomodation.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
+                .reviews(accomodation.getReviews() != null ? accomodation.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 
