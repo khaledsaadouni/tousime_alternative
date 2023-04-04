@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +52,7 @@ public class AccomodationServiceImpl implements AccomodationService {
     @Override
     public AccomodationDto createAccomodation(AccomodationDto dto, long id) {
         Accomodation accomodation = AccomodationDto.toEntity(dto);
+        accomodation.setCreationDate(Instant.now());
         accomodation.setPartner(partnerRepository.findById(id).orElseThrow());
         return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
     }

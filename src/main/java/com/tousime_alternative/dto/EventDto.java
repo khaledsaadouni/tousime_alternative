@@ -5,12 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
 public class EventDto {
     private long id;
+
+    private String destination;
     private int capacity;
     private String description;
     private String emplacement;
@@ -23,7 +27,9 @@ public class EventDto {
     private Date eventDate;
     private PartnerDto partner;
     private float price;
+    private Instant creationDate;
 
+    private List<ReviewDto> reviews;
     public static EventDto fromEntity(Event event) {
         if (event == null) {
             return null;
@@ -43,6 +49,9 @@ public class EventDto {
                 .eventDate(event.getEventDate())
                 .partner(PartnerDto.fromEntity(event.getPartner()))
                 .price(event.getPrice())
+                .destination(event.getDestination())
+                .creationDate(event.getCreationDate())
+                .reviews(event.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -64,6 +73,7 @@ public class EventDto {
         event.setRegulations(dto.getRegulations());
         event.setDuration(dto.getDuration());
         event.setPrice(dto.getPrice());
+        event.setDestination(dto.getDestination());
         return event;
     }
 }

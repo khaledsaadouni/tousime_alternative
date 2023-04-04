@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -21,6 +22,11 @@ public class Offer {
     private String emplacement;
     @Column()
     private String name;
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private Instant creationDate;
+    @Column()
+    private String destination;
 
     @Column()
     private String type;

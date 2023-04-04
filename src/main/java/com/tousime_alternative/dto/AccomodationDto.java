@@ -5,7 +5,9 @@ import com.tousime_alternative.model.enumr.ComodityList;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -15,6 +17,7 @@ public class AccomodationDto {
     private String description;
     private String emplacement;
     private String name;
+    private String destination;
     private List<String> photo;
     private List<String> socialMediaLink;
     private String type;
@@ -23,7 +26,9 @@ public class AccomodationDto {
     private float price;
     private float promotion;
     private PartnerDto partner;
+    private Instant creationDate;
 
+    private List<ReviewDto> reviews;
 
     public static AccomodationDto fromEntity(Accomodation accomodation) {
         if (accomodation == null) {
@@ -44,6 +49,9 @@ public class AccomodationDto {
                 .price(accomodation.getPrice())
                 .promotion(accomodation.getPromotion())
                 .partner(PartnerDto.fromEntity(accomodation.getPartner()))
+                .destination(accomodation.getDestination())
+                .creationDate(accomodation.getCreationDate())
+                .reviews(accomodation.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -65,6 +73,7 @@ public class AccomodationDto {
         accomodation.setRegulations(dto.getRegulations());
         accomodation.setPrice(dto.getPrice());
         accomodation.setPromotion(dto.getPromotion());
+        accomodation.setDestination(dto.getDestination());
         return accomodation;
     }
 }

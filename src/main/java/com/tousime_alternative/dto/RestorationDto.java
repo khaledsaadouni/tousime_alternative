@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -14,6 +15,8 @@ public class RestorationDto {
     private Instant creationDate;
     private int capacity;
     private String description;
+
+    private String destination;
     private String emplacement;
     private String name;
     private List<String> photo;
@@ -25,6 +28,7 @@ public class RestorationDto {
 
     //private List<ReviewDto> reviews;
     private PartnerDto partner;
+    private List<ReviewDto> reviews;
 
     public static RestorationDto fromEntity(Restoration restauration) {
         if (restauration == null) {
@@ -43,7 +47,10 @@ public class RestorationDto {
                 .opening(restauration.getOpening())
                 .closing(restauration.getClosing())
                 .menu(restauration.getMenu())
+                .destination(restauration.getDestination())
                 .partner(PartnerDto.fromEntity(restauration.getPartner()))
+                .creationDate(restauration.getCreationDate())
+                .reviews(restauration.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -64,6 +71,7 @@ public class RestorationDto {
         restauration.setClosing(dto.getClosing());
         restauration.setOpening(dto.getOpening());
         restauration.setMenu(dto.getMenu());
+        restauration.setDestination(dto.getDestination());
 
         return restauration;
     }

@@ -4,6 +4,7 @@ import com.tousime_alternative.model.Offer;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -13,8 +14,11 @@ public class OfferDto {
     private int capacity;
     private String description;
     private String emplacement;
+
+    private String destination;
     private String name;
     private List<String> photo;
+    private Instant creationDate;
     private List<String> socialMediaLink;
     private String type;
 
@@ -29,6 +33,8 @@ public class OfferDto {
                 .capacity(offer.getCapacity())
                 .emplacement(offer.getEmplacement())
                 .type(offer.getType())
+                .destination(offer.getDestination())
+                .creationDate(offer.getCreationDate())
                 .build();
     }
 
@@ -43,7 +49,7 @@ public class OfferDto {
         offer.setCapacity(dto.getCapacity());
         offer.setEmplacement(dto.getEmplacement());
         offer.setType(dto.getType());
-
+        offer.setDestination(dto.getDestination());
         return offer;
     }
 }

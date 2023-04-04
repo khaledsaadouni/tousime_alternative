@@ -9,6 +9,7 @@ import com.tousime_alternative.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
         Review review = ReviewDto.toEntity(dto);
         review.setUser(userRepository.findById(iduser).orElseThrow());
         review.setOffer(offerRepository.findById(idoffer).orElseThrow());
+        review.setCreationDate(Instant.now());
         return ReviewDto.fromEntity(reviewRepository.save(review));
     }
 }

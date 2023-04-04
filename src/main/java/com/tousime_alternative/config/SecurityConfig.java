@@ -2,9 +2,7 @@ package com.tousime_alternative.config;
 
 import com.tousime_alternative.OAuth2.CustomOAuth2User;
 import com.tousime_alternative.OAuth2.CustomOAuth2UserService;
-import com.tousime_alternative.OAuth2.OAuth2LoginSuccessHandler;
 import com.tousime_alternative.OAuth2.OAuthUserService;
-import com.tousime_alternative.service.auth.AuthenticationService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,6 +39,14 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .requestMatchers("/oauth2/**")
+                .permitAll()
+                .requestMatchers("/api/v1/accomodation/all")
+                .permitAll()
+                .requestMatchers("/api/v1/event/all")
+                .permitAll()
+                .requestMatchers("/api/v1/restoration/all")
+                .permitAll()
+                .requestMatchers("/api/v1/artisan/all")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
