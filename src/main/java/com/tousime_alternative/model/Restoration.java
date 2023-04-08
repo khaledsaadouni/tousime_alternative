@@ -6,7 +6,6 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import lombok.*;
 
-import java.time.Instant;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -25,9 +24,9 @@ public class Restoration extends Offer {
     @Column()
     private List<String> socialMediaLinks;
     @Column()
-    private Instant opening;
+    private String opening;
     @Column()
-    private Instant closing;
+    private String closing;
     @Column()
     private String menu;
 }

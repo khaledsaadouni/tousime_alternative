@@ -29,7 +29,21 @@ public class AccomodationServiceImpl implements AccomodationService {
 
     @Override
     public AccomodationDto update(AccomodationDto dto) {
-        Accomodation accomodation = AccomodationDto.toEntity(dto);
+        Accomodation accomodation = accomodationRepository.findById(dto.getId()).orElseThrow();
+        accomodation.setGeneric_Type("accomodation");
+        accomodation.setDescription(dto.getDescription());
+        accomodation.setGoogle_map(dto.getGoogle_map());
+        accomodation.setName(dto.getName());
+        accomodation.setCapacity(dto.getCapacity());
+        accomodation.setEmplacement(dto.getEmplacement());
+        accomodation.setPhoto(dto.getPhoto());
+        accomodation.setSocialMediaLinks(dto.getSocialMediaLink());
+        accomodation.setType(dto.getType());
+        accomodation.setComodityList(dto.getComodityList());
+        accomodation.setRegulations(dto.getRegulations());
+        accomodation.setPrice(dto.getPrice());
+        accomodation.setPromotion(dto.getPromotion());
+        accomodation.setDestination(dto.getDestination());
         return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
     }
 
@@ -52,6 +66,7 @@ public class AccomodationServiceImpl implements AccomodationService {
     @Override
     public AccomodationDto createAccomodation(AccomodationDto dto, long id) {
         Accomodation accomodation = AccomodationDto.toEntity(dto);
+        accomodation.setGeneric_Type("accomodation");
         accomodation.setCreationDate(Instant.now());
         accomodation.setPartner(partnerRepository.findById(id).orElseThrow());
         return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));

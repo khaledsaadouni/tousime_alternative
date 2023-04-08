@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Builder
 public class AccomodationDto {
     private long id;
+    private String generic_Type;
     private int capacity;
     private String description;
     private String emplacement;
@@ -29,6 +30,7 @@ public class AccomodationDto {
     private Instant creationDate;
 
     private List<ReviewDto> reviews;
+    private String google_map;
 
     public static AccomodationDto fromEntity(Accomodation accomodation) {
         if (accomodation == null) {
@@ -38,6 +40,8 @@ public class AccomodationDto {
         return AccomodationDto.builder()
                 .id(accomodation.getId())
                 .name(accomodation.getName())
+                .google_map(accomodation.getGoogle_map())
+                .generic_Type("accomodation")
                 .capacity(accomodation.getCapacity())
                 .description(accomodation.getDescription())
                 .emplacement(accomodation.getEmplacement())
@@ -61,7 +65,9 @@ public class AccomodationDto {
         }
 
         Accomodation accomodation = new Accomodation();
+        accomodation.setGeneric_Type("accomodation");
         accomodation.setId(dto.getId());
+        accomodation.setGoogle_map(dto.getGoogle_map());
         accomodation.setDescription(dto.getDescription());
         accomodation.setName(dto.getName());
         accomodation.setCapacity(dto.getCapacity());

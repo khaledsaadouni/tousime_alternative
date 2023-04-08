@@ -30,7 +30,20 @@ public class RestorationServiceImpl implements RestorationService {
 
     @Override
     public RestorationDto update(RestorationDto dto) {
-        Restoration restauration = RestorationDto.toEntity(dto);
+        Restoration restauration = restaurationRepository.findById(dto.getId()).orElseThrow();
+        restauration.setDescription(dto.getDescription());
+        restauration.setName(dto.getName());
+        restauration.setGoogle_map(dto.getGoogle_map());
+        restauration.setCapacity(dto.getCapacity());
+        restauration.setEmplacement(dto.getEmplacement());
+        restauration.setPhoto(dto.getPhoto());
+        restauration.setGeneric_Type("restoration");
+        restauration.setSocialMediaLinks(dto.getSocialMediaLink());
+        restauration.setType(dto.getType());
+        restauration.setClosing(dto.getClosing());
+        restauration.setOpening(dto.getOpening());
+        restauration.setMenu(dto.getMenu());
+        restauration.setDestination(dto.getDestination());
         return RestorationDto.fromEntity(restaurationRepository.save(restauration));
     }
 
@@ -52,6 +65,7 @@ public class RestorationServiceImpl implements RestorationService {
     @Override
     public RestorationDto createRestauration(RestorationDto dto, long id) {
         Restoration restauration = RestorationDto.toEntity(dto);
+        restauration.setGeneric_Type("restoration");
         restauration.setCreationDate(Instant.now());
         restauration.setPartner(partnerRepository.findById(id).orElseThrow());
         return RestorationDto.fromEntity(restaurationRepository.save(restauration));

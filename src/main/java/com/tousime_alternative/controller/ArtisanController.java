@@ -28,7 +28,7 @@ public class ArtisanController {
         return ResponseEntity.ok(artisanService.findById(id).orElseThrow());
     }
 
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<ArtisanDto> update(@RequestBody ArtisanDto artisanDto) {
         return ResponseEntity.ok(artisanService.update(artisanDto));
     }
@@ -41,5 +41,10 @@ public class ArtisanController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
         artisanService.delete(id);
+    }
+
+    @GetMapping("all/{idPartner}")
+    public List<ArtisanDto> findByPartnerid(@PathVariable("idPartner") long id) {
+        return artisanService.findAllByPartnerId(id);
     }
 }

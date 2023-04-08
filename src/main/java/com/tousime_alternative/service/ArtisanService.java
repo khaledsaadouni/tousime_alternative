@@ -11,6 +11,9 @@ public interface ArtisanService {
     Optional<ArtisanDto> findById(Long id);
 
     List<ArtisanDto> findAll();
+
+    List<ArtisanDto> findAllByPartnerId(long id);
+
     void delete(Long id);
 
     ArtisanDto createArtisan(ArtisanDto artisanDt, long id);

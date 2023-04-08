@@ -28,7 +28,16 @@ public class ArtisanServiceImpl implements ArtisanService {
 
     @Override
     public ArtisanDto update(ArtisanDto artisanDto) {
-        Artisan artisan = ArtisanDto.toEntity(artisanDto);
+        Artisan artisan = artisanRepository.findById(artisanDto.getId()).orElseThrow();
+        artisan.setDestination(artisanDto.getDestination());
+        artisan.setGoogle_map(artisan.getGoogle_map());
+        artisan.setEmplacement(artisanDto.getEmplacement());
+        artisan.setOpening_hour(artisanDto.getOpening_hour());
+        artisan.setDescription(artisanDto.getDescription());
+        artisan.setClosing_hour(artisanDto.getClosing_hour());
+        artisan.setCommercial_name(artisanDto.getCommercial_name());
+        artisan.setPhoto(artisanDto.getPhoto());
+        artisan.setType(artisanDto.getType());
         artisan.setLastModifiedDate(Instant.now());
         return ArtisanDto.fromEntity(artisanRepository.save(artisan));
     }
@@ -43,6 +52,14 @@ public class ArtisanServiceImpl implements ArtisanService {
     @Override
     public List<ArtisanDto> findAll() {
         return artisanRepository.findAll().stream()
+                .map(ArtisanDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArtisanDto> findAllByPartnerId(long id) {
+        return artisanRepository.findAllByPartnerId(id)
+                .stream()
                 .map(ArtisanDto::fromEntity)
                 .collect(Collectors.toList());
     }

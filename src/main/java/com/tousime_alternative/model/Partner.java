@@ -1,5 +1,6 @@
 package com.tousime_alternative.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -20,8 +21,8 @@ public class Partner extends User {
     private String commercial_name;
     @Column(length = 100)
     private String address;
-    @OneToMany(mappedBy = "partner")
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
-    @OneToMany(mappedBy = "partner")
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.REMOVE)
     private List<Artisan> artisans;
 }

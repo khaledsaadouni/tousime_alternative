@@ -14,7 +14,7 @@ public class OfferDto {
     private int capacity;
     private String description;
     private String emplacement;
-
+    private String generic_Type;
     private String destination;
     private String name;
     private List<String> photo;
@@ -34,6 +34,7 @@ public class OfferDto {
                 .emplacement(offer.getEmplacement())
                 .type(offer.getType())
                 .destination(offer.getDestination())
+                .generic_Type(offer.getGeneric_Type())
                 .creationDate(offer.getCreationDate())
                 .build();
     }
@@ -49,6 +50,7 @@ public class OfferDto {
         offer.setCapacity(dto.getCapacity());
         offer.setEmplacement(dto.getEmplacement());
         offer.setType(dto.getType());
+        offer.setGeneric_Type(dto.getGeneric_Type());
         offer.setDestination(dto.getDestination());
         return offer;
     }

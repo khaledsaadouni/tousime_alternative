@@ -15,10 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Artisan extends AbstractEntity {
-    @Column(nullable = false, length = 50)
-    private String Emplacement;
+    @Column(length = 50)
+    private String emplacement;
     @Column()
     private LocalTime opening_hour;
+    @Column()
+    private String google_map;
+    @Column()
+    private String destination;
+    @Column()
+    private String description;
     @Column()
     private LocalTime closing_hour;
     @Column(length = 50)
@@ -32,7 +38,7 @@ public class Artisan extends AbstractEntity {
     @ManyToOne()
     @JoinColumn(name = "idPartner")
     private Partner partner;
-    @OneToMany(mappedBy = "artisan")
+    @OneToMany(mappedBy = "artisan", cascade = CascadeType.REMOVE)
     private List<Artical> articals;
 
 

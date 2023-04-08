@@ -27,9 +27,11 @@ public class EventDto {
     private Date eventDate;
     private PartnerDto partner;
     private float price;
+    private String generic_Type;
     private Instant creationDate;
 
     private List<ReviewDto> reviews;
+    private String google_map;
     public static EventDto fromEntity(Event event) {
         if (event == null) {
             return null;
@@ -37,6 +39,8 @@ public class EventDto {
 
         return EventDto.builder()
                 .id(event.getId())
+                .generic_Type("event")
+                .google_map(event.getGoogle_map())
                 .name(event.getName())
                 .capacity(event.getCapacity())
                 .description(event.getDescription())
@@ -64,6 +68,7 @@ public class EventDto {
         event.setId(dto.getId());
         event.setName(dto.getName());
         event.setDescription(dto.getDescription());
+        event.setGoogle_map(dto.getGoogle_map());
         event.setCapacity(dto.getCapacity());
         event.setEmplacement(dto.getEmplacement());
         event.setPhoto(dto.getPhoto());
@@ -73,6 +78,7 @@ public class EventDto {
         event.setRegulations(dto.getRegulations());
         event.setDuration(dto.getDuration());
         event.setPrice(dto.getPrice());
+        event.setGeneric_Type("event");
         event.setDestination(dto.getDestination());
         return event;
     }

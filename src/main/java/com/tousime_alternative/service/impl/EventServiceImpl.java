@@ -30,7 +30,22 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventDto update(EventDto dto) {
-        Event event = EventDto.toEntity(dto);
+        Event event = eventRepository.findById(dto.getId()).orElseThrow();
+
+        event.setName(dto.getName());
+        event.setDescription(dto.getDescription());
+        event.setCapacity(dto.getCapacity());
+        event.setEmplacement(dto.getEmplacement());
+        event.setPhoto(dto.getPhoto());
+        event.setGoogle_map(dto.getGoogle_map());
+        event.setSocialMediaLinks(dto.getSocialMediaLink());
+        event.setType(dto.getType());
+        event.setEventDate(dto.getEventDate());
+        event.setRegulations(dto.getRegulations());
+        event.setDuration(dto.getDuration());
+        event.setPrice(dto.getPrice());
+        event.setGeneric_Type("event");
+        event.setDestination(dto.getDestination());
         return EventDto.fromEntity(eventRepository.save(event));
     }
 
@@ -53,6 +68,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto createEvent(EventDto dto, long id) {
         Event event = EventDto.toEntity(dto);
+        event.setGeneric_Type("event");
         event.setCreationDate(Instant.now());
         event.setPartner(partnerRepository.findById(id).orElseThrow());
         return EventDto.fromEntity(eventRepository.save(event));

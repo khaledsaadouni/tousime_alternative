@@ -22,13 +22,13 @@ public class RestorationDto {
     private List<String> photo;
     private List<String> socialMediaLink;
     private String type;
-    private Instant opening;
-    private Instant closing;
+    private String opening;
+    private String closing;
     private String menu;
-
-    //private List<ReviewDto> reviews;
+    private String generic_Type;
     private PartnerDto partner;
     private List<ReviewDto> reviews;
+    private String google_map;
 
     public static RestorationDto fromEntity(Restoration restauration) {
         if (restauration == null) {
@@ -38,6 +38,8 @@ public class RestorationDto {
         return RestorationDto.builder()
                 .id(restauration.getId())
                 .name(restauration.getName())
+                .google_map(restauration.getGoogle_map())
+                .generic_Type("restoration")
                 .description(restauration.getDescription())
                 .capacity(restauration.getCapacity())
                 .emplacement(restauration.getEmplacement())
@@ -66,6 +68,8 @@ public class RestorationDto {
         restauration.setCapacity(dto.getCapacity());
         restauration.setEmplacement(dto.getEmplacement());
         restauration.setPhoto(dto.getPhoto());
+        restauration.setGoogle_map(dto.getGoogle_map());
+        restauration.setGeneric_Type("restoration");
         restauration.setSocialMediaLinks(dto.getSocialMediaLink());
         restauration.setType(dto.getType());
         restauration.setClosing(dto.getClosing());

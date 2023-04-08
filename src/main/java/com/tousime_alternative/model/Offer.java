@@ -19,7 +19,11 @@ public class Offer {
     @Column()
     private String description;
     @Column()
+    private String generic_Type;
+    @Column()
     private String emplacement;
+    @Column()
+    private String google_map;
     @Column()
     private String name;
     @CreatedDate
@@ -34,10 +38,10 @@ public class Offer {
     @JoinColumn(name = "idPartner")
     private Partner partner;
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE)
     private List<Review> reviews;
 
 }
