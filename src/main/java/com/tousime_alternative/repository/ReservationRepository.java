@@ -9,7 +9,7 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findAllByUserId(long id);
 
-    List<Reservation> findAllByOfferId(long id);
+    List<Reservation> findAllByOfferPartnerId(long id);
 
     Integer countByStateAndOfferId(State state, long id);
 

@@ -12,7 +12,15 @@ public interface ReservationService {
 
     List<ReservationDto> findAll();
 
+    List<ReservationDto> findAllByPartner(long id);
+
+    List<ReservationDto> findAllByClient(long id);
+
     void delete(Long id);
+
+    void confirm(Long id);
+
+    void cancel(Long id);
 
     ReservationDto createReservation(ReservationDto reservationDto, long iduser, long idoffer);
 }

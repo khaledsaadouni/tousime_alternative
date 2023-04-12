@@ -58,8 +58,36 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDto> findAllByPartner(long id) {
+        return reservationRepository.findAllByOfferPartnerId(id).stream()
+                .map(ReservationDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDto> findAllByClient(long id) {
+        return reservationRepository.findAllByUserId(id).stream()
+                .map(ReservationDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         reservationRepository.deleteById(id);
+    }
+
+    @Override
+    public void confirm(Long id) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        reservation.setState(State.Confirmed);
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void cancel(Long id) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        reservation.setState(State.Canceled);
+        reservationRepository.save(reservation);
     }
 
     @Override

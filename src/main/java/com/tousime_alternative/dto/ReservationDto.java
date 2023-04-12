@@ -44,7 +44,7 @@ public class ReservationDto {
         Reservation reservation = new Reservation();
         reservation.setId(reservationDto.getId());
         reservation.setPrice(reservationDto.getPrice());
-        reservation.setCount_days(reservation.getCount_days());
+        reservation.setCount_days(reservationDto.getCount_days());
         reservation.setDate(reservationDto.getDate());
         reservation.setState(reservationDto.getState());
         reservation.setCount_people(reservationDto.getCount_people());

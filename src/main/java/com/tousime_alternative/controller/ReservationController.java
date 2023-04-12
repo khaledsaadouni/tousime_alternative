@@ -25,6 +25,16 @@ public class ReservationController {
         return reservationService.findAll();
     }
 
+    @GetMapping("/all/partner/{id}")
+    public List<ReservationDto> findAllByParnter(@PathVariable("id") Long id) {
+        return reservationService.findAllByPartner(id);
+    }
+
+    @GetMapping("/all/client/{id}")
+    public List<ReservationDto> findAllByClient(@PathVariable("id") Long id) {
+        return reservationService.findAllByClient(id);
+    }
+
     @GetMapping("/findById/{id}")
     public Optional<ReservationDto> findById(@PathVariable("id") Long id) {
         return reservationService.findById(id);
@@ -38,6 +48,16 @@ public class ReservationController {
     @PostMapping("/add/{idUser}/{idOffer}")
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto, @PathVariable("idUser") long idUser, @PathVariable("idOffer") long idOffer) {
         return ResponseEntity.ok(reservationService.createReservation(reservationDto, idUser, idOffer));
+    }
+
+    @PostMapping("/confirm/{id}")
+    public void confirm(@PathVariable("id") long id) {
+        reservationService.confirm(id);
+    }
+
+    @PostMapping("/cancel/{id}")
+    public void cancel(@PathVariable("id") long id) {
+        reservationService.cancel(id);
     }
 
     @DeleteMapping("/delete/{id}")
