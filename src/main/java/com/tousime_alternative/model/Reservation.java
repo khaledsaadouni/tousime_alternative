@@ -17,8 +17,12 @@ public class Reservation extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private State state;
-    @Column(nullable = false)
+    @Column()
     private Integer count_people;
+    @Column()
+    private Integer count_days;
+    @Column()
+    private float price;
     @ManyToOne()
     @JoinColumn(name = "idOffer")
     private Offer offer;

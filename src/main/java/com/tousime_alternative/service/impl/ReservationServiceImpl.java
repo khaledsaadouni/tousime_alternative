@@ -1,7 +1,9 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.ReservationDto;
+import com.tousime_alternative.model.Offer;
 import com.tousime_alternative.model.Reservation;
+import com.tousime_alternative.model.enumr.State;
 import com.tousime_alternative.repository.OfferRepository;
 import com.tousime_alternative.repository.ReservationRepository;
 import com.tousime_alternative.repository.UserRepository;
@@ -31,7 +33,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDto update(ReservationDto reservationDto) {
-        Reservation reservation = ReservationDto.toEntity(reservationDto);
+        Reservation reservation = reservationRepository.findById(reservationDto.getId()).orElseThrow();
+        reservation.setPrice(reservationDto.getPrice());
+        reservation.setCount_days(reservationDto.getCount_days());
+        reservation.setDate(reservationDto.getDate());
+        reservation.setState(reservationDto.getState());
+        reservation.setCount_people(reservationDto.getCount_people());
         reservation.setLastModifiedDate(Instant.now());
         return ReservationDto.fromEntity(reservationRepository.save(reservation));
     }
@@ -57,10 +64,17 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDto createReservation(ReservationDto reservationDto, long iduser, long idoffer) {
+        Offer offer = offerRepository.findById(idoffer).orElseThrow();
+        // if(reservationRepository.countByStateAndOfferId(State.Confirmed,idoffer)<=offer.getCapacity()){
         Reservation reservation = ReservationDto.toEntity(reservationDto);
         reservation.setCreationDate(Instant.now());
         reservation.setUser(userRepository.findById(iduser).orElseThrow());
-        reservation.setOffer(offerRepository.findById(idoffer).orElseThrow());
+        reservation.setOffer(offer);
+        reservation.setState(State.Pending);
         return ReservationDto.fromEntity(reservationRepository.save(reservation));
+//    }else{
+//            throw new RuntimeException("Not Enough places");
+//        }
+
     }
 }

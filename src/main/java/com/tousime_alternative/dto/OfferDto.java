@@ -43,7 +43,6 @@ public class OfferDto {
         if (dto == null) {
             return null;
         }
-
         Offer offer = new Offer();
         offer.setId(dto.getId());
         offer.setName(dto.getName());

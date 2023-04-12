@@ -19,6 +19,8 @@ import java.util.List;
 public class Partner extends User {
     @Column(length = 50)
     private String commercial_name;
+    @Column()
+    private String RIB;
     @Column(length = 100)
     private String address;
     @OneToMany(mappedBy = "partner", cascade = CascadeType.REMOVE)

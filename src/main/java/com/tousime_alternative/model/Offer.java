@@ -17,6 +17,7 @@ public class Offer {
     @Column(length = 8)
     private int capacity;
     @Column()
+    @Lob
     private String description;
     @Column()
     private String generic_Type;

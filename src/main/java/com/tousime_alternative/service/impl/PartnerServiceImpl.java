@@ -39,6 +39,7 @@ public class PartnerServiceImpl implements PartnerService {
         user.setLastname(dto.getLastname());
         user.setFirstname(dto.getFirstname());
         user.setEmail(dto.getEmail());
+        user.setRIB(dto.getRIB());
         user.setBirthday(dto.getBirthday());
         user.setRole(dto.getRole());
         user.setPhoto(dto.getPhoto());
