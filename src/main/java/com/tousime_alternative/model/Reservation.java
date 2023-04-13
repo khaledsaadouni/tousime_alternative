@@ -20,7 +20,7 @@ public class Reservation extends AbstractEntity {
     @Column()
     private Integer count_people;
     @Column()
-    private Integer count_days;
+    private Date checkout;
     @Column()
     private float price;
     @ManyToOne()

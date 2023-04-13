@@ -14,7 +14,7 @@ public class ReservationDto {
     private Date date;
     private State state;
     private Integer count_people;
-    private Integer count_days;
+    private Date checkout;
     private float price;
     private UserDto user;
     private OfferDto offer;
@@ -27,7 +27,7 @@ public class ReservationDto {
         return ReservationDto.builder()
                 .id(reservation.getId())
                 .date(reservation.getDate())
-                .count_days(reservation.getCount_days())
+                .checkout(reservation.getCheckout())
                 .price(reservation.getPrice())
                 .state(reservation.getState())
                 .count_people(reservation.getCount_people())
@@ -44,7 +44,7 @@ public class ReservationDto {
         Reservation reservation = new Reservation();
         reservation.setId(reservationDto.getId());
         reservation.setPrice(reservationDto.getPrice());
-        reservation.setCount_days(reservationDto.getCount_days());
+        reservation.setCheckout(reservationDto.getCheckout());
         reservation.setDate(reservationDto.getDate());
         reservation.setState(reservationDto.getState());
         reservation.setCount_people(reservationDto.getCount_people());

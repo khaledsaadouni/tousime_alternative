@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDto update(ReservationDto reservationDto) {
         Reservation reservation = reservationRepository.findById(reservationDto.getId()).orElseThrow();
         reservation.setPrice(reservationDto.getPrice());
-        reservation.setCount_days(reservationDto.getCount_days());
+        reservation.setCheckout(reservationDto.getCheckout());
         reservation.setDate(reservationDto.getDate());
         reservation.setState(reservationDto.getState());
         reservation.setCount_people(reservationDto.getCount_people());
