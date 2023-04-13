@@ -1,5 +1,6 @@
 package com.tousime_alternative.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tousime_alternative.model.enumr.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,9 +39,11 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Reservation> reservations;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Review> reviews;
     @Enumerated(EnumType.STRING)
     private AuthenticationProvider authProvider;

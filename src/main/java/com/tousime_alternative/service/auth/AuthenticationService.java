@@ -29,17 +29,6 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public void processOAuthPostLogin(String email) {
-        var user = repository.findByEmail(email)
-                .orElseThrow();
-
-        if (user == null) {
-
-
-            System.out.println("Created new user: " + email);
-        }
-
-    }
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()

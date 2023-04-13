@@ -1,8 +1,11 @@
 package com.tousime_alternative.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.tools.jconsole.JConsoleContext;
 import com.tousime_alternative.OAuth2.CustomOAuth2User;
 import com.tousime_alternative.OAuth2.CustomOAuth2UserService;
 import com.tousime_alternative.OAuth2.OAuthUserService;
+import com.tousime_alternative.dto.auth.AuthenticationResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 
 
@@ -76,9 +80,16 @@ public class SecurityConfig {
                                                         Authentication authentication) throws IOException, ServletException {
                         System.out.println("AuthenticationSuccessHandler invoked");
                         CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-                        System.out.println("****************** user "+oauthUser.getAttributes());
                         oAuthUserService.processOAuthPostLogin(oauthUser.getEmail(),oauthUser.fisrtName(),oauthUser.LastName(),oauthUser.Image(),oauthUser.client(),oauthUser.getName(),oauthUser.getImageFromFacebook(),oauthUser.getbirthday());
-                        response.sendRedirect("http://localhost:3000/");
+                        AuthenticationResponse authResponse = oAuthUserService.generateTokenAfterLogin(oauthUser.getEmail());
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String jsonResponse = objectMapper.writeValueAsString(authResponse);
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(jsonResponse);
+                        response.sendRedirect("http://localhost:3000/"+"?token=" + authResponse.getToken()+"&user="+authResponse.getUser());
+
+
                     }
                 })
                 .and()
