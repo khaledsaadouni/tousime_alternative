@@ -1,6 +1,5 @@
 package com.tousime_alternative;
 
-import com.tousime_alternative.OAuth2.OAuth2LoginSuccessHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

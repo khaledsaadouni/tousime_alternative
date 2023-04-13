@@ -17,23 +17,15 @@ import java.time.Instant;
 @Service
 @RequiredArgsConstructor
 public class OAuthUserService {
-    private final UserRepository repository;
-    private static String tokenFromOauth2;
-    private static UserDto user;
+    private final UserRepository repo;
+
     private final JwtService jwtService;
     private final UserService userService;
 
-    public static UserDto getUserFromOuth2() {
-        return user;
-    }
 
-    public String getTokenFromOauth2() {
-        return tokenFromOauth2;
-    }
-
-    public AuthenticationResponse processOAuthPostLogin(String email, String fisrtname, String lastname, String image, String client, String name, String facebookpicture, Date birthday) {
-        var user = repository.findByEmail(email);
-        System.out.println("**************** user " + user);
+    public void processOAuthPostLogin(String email, String fisrtname, String lastname, String image, String client, String name, String facebookpicture, Date birthday) {
+        var user = repo.findByEmail(email);
+        System.out.println("+++ user " + user);
         if (fisrtname == null) {
             String[] splitedname = name.split("\\s+");
             fisrtname = splitedname[0];
@@ -52,30 +44,23 @@ public class OAuthUserService {
                     .authProvider(AuthenticationProvider.valueOf(client.toUpperCase()))
                     .build();
             newuser.setCreationDate(Instant.now());
-            repository.save(newuser);
-            var jwtToken = jwtService.generateToken(newuser);
-            this.tokenFromOauth2 = jwtToken;
-            this.user = UserDto.fromEntity(newuser);
-            System.out.println("++++++++++++ token : * " + jwtToken);
-            return AuthenticationResponse.builder().token(jwtToken).build();
+            repo.save(newuser);
         }
 
         else {
             System.out.println("+++++ user exist deja");
-            var user2 = repository.findByEmail(email)
-                    .orElseThrow();
-            var jwtToken = jwtService.generateToken(user2);
-            this.tokenFromOauth2 = jwtToken;
-            this.user = UserDto.fromEntity(user2);
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
         }
     }
 
-    public void deleteOAuthPostLogin() {
-        tokenFromOauth2 = "";
-        user = null;
+    public AuthenticationResponse generateTokenAfterLogin(String email){
+        System.out.println("Generate  token ... ");
+        var user2 = repo.findByEmail(email)
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user2);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .user(UserDto.fromEntity(user2))
+                .build();
     }
 
 }
