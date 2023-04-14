@@ -87,7 +87,7 @@ public class SecurityConfig {
                         response.setContentType("application/json");
                         response.setCharacterEncoding("UTF-8");
                         response.getWriter().write(jsonResponse);
-                        response.sendRedirect("http://localhost:3000/"+"?token=" + authResponse.getToken()+"&user="+authResponse.getUser());
+                        response.sendRedirect("http://localhost:3000/sign/in/"+"?token=" + authResponse.getToken()+"&user="+authResponse.getUser());
 
 
                     }
