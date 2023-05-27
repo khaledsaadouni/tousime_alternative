@@ -1,6 +1,7 @@
 package com.tousime_alternative.dto;
 
 import com.tousime_alternative.model.Offer;
+import com.tousime_alternative.model.Partner;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,7 +22,6 @@ public class OfferDto {
     private Instant creationDate;
     private List<String> socialMediaLink;
     private String type;
-
     public static OfferDto fromEntity(Offer offer) {
         if (offer == null) {
             return null;

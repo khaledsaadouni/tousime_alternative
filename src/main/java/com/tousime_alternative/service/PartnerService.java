@@ -19,5 +19,6 @@ public interface PartnerService {
     PartnerDto findByEmail(String email);
 
     PartnerDto updatePassword(UpdatePasswordDto dto);
+    PartnerDto findByOffer(Long id);
 
 }

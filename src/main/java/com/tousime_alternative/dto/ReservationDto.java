@@ -18,7 +18,7 @@ public class ReservationDto {
     private float price;
     private UserDto user;
     private OfferDto offer;
-
+private boolean payed;
     public static ReservationDto fromEntity(Reservation reservation) {
         if (reservation == null) {
             return null;
@@ -33,6 +33,7 @@ public class ReservationDto {
                 .count_people(reservation.getCount_people())
                 .user(UserDto.fromEntity(reservation.getUser()))
                 .offer(OfferDto.fromEntity(reservation.getOffer()))
+                .payed(reservation.isPayed())
                 .build();
     }
 
@@ -48,6 +49,7 @@ public class ReservationDto {
         reservation.setDate(reservationDto.getDate());
         reservation.setState(reservationDto.getState());
         reservation.setCount_people(reservationDto.getCount_people());
+        reservation.setPayed((reservationDto.isPayed()));
         return reservation;
 
     }

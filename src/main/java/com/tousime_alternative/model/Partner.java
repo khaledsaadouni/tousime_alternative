@@ -20,7 +20,9 @@ public class Partner extends User {
     @Column(length = 50)
     private String commercial_name;
     @Column()
-    private String RIB;
+    private String secretKey;
+    @Column()
+    private String publicKey;
     @Column(length = 100)
     private String address;
     @OneToMany(mappedBy = "partner", cascade = CascadeType.REMOVE)

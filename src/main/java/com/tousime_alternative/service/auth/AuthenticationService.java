@@ -75,6 +75,7 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        System.out.println("token"+jwtToken);
         if (user.getRole() == Role.Partner) {
             var partner = partnerRepository.findByEmail(request.getEmail()).orElseThrow();
             return AuthenticationResponse.builder()

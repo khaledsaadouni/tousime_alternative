@@ -39,7 +39,8 @@ public class PartnerServiceImpl implements PartnerService {
         user.setLastname(dto.getLastname());
         user.setFirstname(dto.getFirstname());
         user.setEmail(dto.getEmail());
-        user.setRIB(dto.getRIB());
+        user.setPublicKey(dto.getPublicKey());
+        user.setSecretKey(dto.getSecretKey());
         user.setBirthday(dto.getBirthday());
         user.setRole(dto.getRole());
         user.setPhoto(dto.getPhoto());
@@ -81,6 +82,9 @@ public class PartnerServiceImpl implements PartnerService {
         user.setLastModifiedDate(Instant.now());
         user = partnerRepository.save(user);
         return PartnerDto.fromEntity(user);
+    }
+    public PartnerDto findByOffer(Long id) {
+        return PartnerDto.fromEntity(partnerRepository.findByOffers(id).orElseThrow());
     }
 
 }

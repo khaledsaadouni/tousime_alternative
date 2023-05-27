@@ -1,6 +1,7 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.ReservationDto;
+import com.tousime_alternative.exception.EntityNotFoundException;
 import com.tousime_alternative.model.Offer;
 import com.tousime_alternative.model.Reservation;
 import com.tousime_alternative.model.enumr.State;
@@ -104,5 +105,11 @@ public class ReservationServiceImpl implements ReservationService {
 //            throw new RuntimeException("Not Enough places");
 //        }
 
+    }
+    public void setReservationUnpayed(Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new EntityNotFoundException("Reservation not found with id " + reservationId));
+        reservation.setPayed(true);
+        reservationRepository.save(reservation);
     }
 }

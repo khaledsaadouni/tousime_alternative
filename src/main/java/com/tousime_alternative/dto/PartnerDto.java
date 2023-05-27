@@ -2,6 +2,7 @@ package com.tousime_alternative.dto;
 
 import com.tousime_alternative.model.Partner;
 import com.tousime_alternative.model.enumr.Role;
+import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +12,8 @@ import java.sql.Date;
 @Builder
 public class PartnerDto {
     private long id;
-    private String RIB;
+    private String secretKey;
+    private String publicKey;
     private String lastname;
     private String firstname;
     private int phone;
@@ -30,7 +32,8 @@ public class PartnerDto {
         return PartnerDto.builder()
                 .id(user.getId())
                 .lastname(user.getLastname())
-                .RIB(user.getRIB())
+                .secretKey(user.getSecretKey())
+                .publicKey(user.getPublicKey())
                 .firstname(user.getFirstname())
                 .phone(user.getPhone())
                 .photo(user.getPhoto())
@@ -49,7 +52,8 @@ public class PartnerDto {
 
         Partner user = new Partner();
         user.setId(dto.getId());
-        user.setRIB(dto.getRIB());
+        user.setSecretKey(dto.getSecretKey());
+        user.setPublicKey(dto.getPublicKey());
         user.setLastname(dto.getLastname());
         user.setFirstname(dto.getFirstname());
         user.setEmail(dto.getEmail());

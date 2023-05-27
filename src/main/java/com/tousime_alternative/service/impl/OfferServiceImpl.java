@@ -1,6 +1,7 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.OfferDto;
+import com.tousime_alternative.dto.PartnerDto;
 import com.tousime_alternative.model.Offer;
 import com.tousime_alternative.repository.OfferRepository;
 import com.tousime_alternative.service.OfferService;
@@ -66,4 +67,5 @@ public class OfferServiceImpl implements OfferService {
         return OfferDto.fromEntity(offerRepository.save(offer));
 
     }
+
 }

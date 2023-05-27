@@ -12,7 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation extends AbstractEntity {
-    @Column(nullable = false)
+    @Column()
     private Date date;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -29,4 +29,6 @@ public class Reservation extends AbstractEntity {
     @ManyToOne()
     @JoinColumn(name = "idUser")
     private User user;
+    @Column()
+    private boolean payed;
 }
