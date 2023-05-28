@@ -16,8 +16,7 @@ public class Offer {
     @CreatedDate
     @Column(length = 8)
     private int capacity;
-    @Column()
-    @Lob
+    @Column(length = 10000)
     private String description;
     @Column()
     private String generic_Type;
