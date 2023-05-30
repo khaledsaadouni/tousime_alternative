@@ -20,6 +20,7 @@ public class ArtisanDto {
     private String description;
     private List<String> photo;
     private String type;
+    private String google_map;
     private List<ArticalDto> articals;
     private String destination;
     private Instant creationDate;
@@ -39,6 +40,7 @@ public class ArtisanDto {
                 .closing_hour(artisan.getClosing_hour())
                 .commercial_name(artisan.getCommercial_name())
                 .description(artisan.getDescription())
+                .google_map(artisan.getGoogle_map())
                 .photo(artisan.getPhoto())
                 .type(artisan.getType())
                 .articals(artisan.getArticals() != null ? artisan.getArticals().stream().map(ArticalDto::fromEntity).collect(Collectors.toList()) : null)
@@ -54,6 +56,7 @@ public class ArtisanDto {
         artisan.setId(artisanDto.getId());
         artisan.setDestination(artisanDto.getDestination());
         artisan.setEmplacement(artisanDto.getEmplacement());
+        artisan.setGoogle_map(artisanDto.getGoogle_map());
         artisan.setOpening_hour(artisanDto.getOpening_hour());
         artisan.setDescription(artisanDto.getDescription());
         artisan.setClosing_hour(artisanDto.getClosing_hour());

@@ -3,6 +3,7 @@ package com.tousime_alternative.controller;
 import com.tousime_alternative.dto.ReservationDto;
 import com.tousime_alternative.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +47,12 @@ public class ReservationController {
     }
 
     @PostMapping("/add/{idUser}/{idOffer}")
-    public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto, @PathVariable("idUser") long idUser, @PathVariable("idOffer") long idOffer) {
-        return ResponseEntity.ok(reservationService.createReservation(reservationDto, idUser, idOffer));
+    public ResponseEntity<?> createReservation(@RequestBody ReservationDto reservationDto, @PathVariable("idUser") long idUser, @PathVariable("idOffer") long idOffer) {
+        try {
+            return ResponseEntity.ok(reservationService.createReservation(reservationDto, idUser, idOffer));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @PostMapping("/confirm/{id}")

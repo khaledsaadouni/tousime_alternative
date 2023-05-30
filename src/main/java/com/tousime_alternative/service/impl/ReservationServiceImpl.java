@@ -93,17 +93,73 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDto createReservation(ReservationDto reservationDto, long iduser, long idoffer) {
+
+
         Offer offer = offerRepository.findById(idoffer).orElseThrow();
-        // if(reservationRepository.countByStateAndOfferId(State.Confirmed,idoffer)<=offer.getCapacity()){
-        Reservation reservation = ReservationDto.toEntity(reservationDto);
-        reservation.setCreationDate(Instant.now());
-        reservation.setUser(userRepository.findById(iduser).orElseThrow());
-        reservation.setOffer(offer);
-        reservation.setState(State.Pending);
-        return ReservationDto.fromEntity(reservationRepository.save(reservation));
-//    }else{
-//            throw new RuntimeException("Not Enough places");
-//        }
+        Reservation r = ReservationDto.toEntity(reservationDto);
+        if (offer.getGeneric_Type().equals("accomodation")) {
+            Reservation reservation = reservationRepository.findLastReservationByOfferAndDate(offer, reservationDto.getDate());
+            Reservation reservation2 = reservationRepository.findFirstReservationByOfferAndDate(offer, reservationDto.getDate());
+            if (reservation == null && reservation2 == null) {
+                r.setCreationDate(Instant.now());
+                r.setUser(userRepository.findById(iduser).orElseThrow());
+                r.setOffer(offer);
+                r.setCount_people(reservationDto.getCount_people());
+                r.setState(State.Pending);
+                return ReservationDto.fromEntity(reservationRepository.save(r));
+            } else if (reservation != null && reservation2 == null && reservationDto.getDate().getTime() > reservation.getCheckout().getTime()) {
+                r.setCreationDate(Instant.now());
+                r.setUser(userRepository.findById(iduser).orElseThrow());
+                r.setOffer(offer);
+                r.setCount_people(reservationDto.getCount_people());
+                r.setState(State.Pending);
+                return ReservationDto.fromEntity(reservationRepository.save(r));
+            } else if (reservation == null && reservation2 != null && reservationDto.getCheckout().getTime() < reservation2.getDate().getTime()) {
+                r.setCreationDate(Instant.now());
+                r.setUser(userRepository.findById(iduser).orElseThrow());
+                r.setOffer(offer);
+                r.setCount_people(reservationDto.getCount_people());
+                r.setState(State.Pending);
+                return ReservationDto.fromEntity(reservationRepository.save(r));
+            } else if (reservation != null && reservation2 != null && reservationDto.getDate().getTime() > reservation.getCheckout().getTime() && reservationDto.getCheckout().getTime() < reservation2.getDate().getTime()) {
+
+                r.setCreationDate(Instant.now());
+                r.setUser(userRepository.findById(iduser).orElseThrow());
+                r.setOffer(offer);
+                r.setCount_people(reservationDto.getCount_people());
+                r.setState(State.Pending);
+                return ReservationDto.fromEntity(reservationRepository.save(r));
+            } else {
+                throw new RuntimeException("These dates are already booked from " + reservation.getDate() + " to " + reservation.getCheckout() + ", please choose another ones");
+            }
+        }
+        if (offer.getGeneric_Type().equals("event")) {
+            Integer count = reservationRepository.getCountPeopleByOffer(offer);
+            if (count == null) {
+                count = 0;
+            }
+            if (reservationDto.getCount_people() == 0) {
+                throw new RuntimeException("Please enter a valid number.");
+            }
+            if (count + reservationDto.getCount_people() > offer.getCapacity()) {
+                throw new RuntimeException((offer.getCapacity() - count) + " places are left for this offer");
+            } else {
+                r.setCreationDate(Instant.now());
+                r.setUser(userRepository.findById(iduser).orElseThrow());
+                r.setOffer(offer);
+                r.setCount_people(reservationDto.getCount_people());
+                r.setState(State.Pending);
+                return ReservationDto.fromEntity(reservationRepository.save(r));
+            }
+
+        }
+
+        r.setCreationDate(Instant.now());
+        r.setUser(userRepository.findById(iduser).orElseThrow());
+        r.setOffer(offer);
+        r.setCount_people(reservationDto.getCount_people());
+        r.setState(State.Pending);
+        return ReservationDto.fromEntity(reservationRepository.save(r));
 
     }
     public void setReservationUnpayed(Long reservationId) {

@@ -1,9 +1,12 @@
 package com.tousime_alternative.repository;
 
+import com.tousime_alternative.model.Offer;
 import com.tousime_alternative.model.Reservation;
-import com.tousime_alternative.model.enumr.State;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
@@ -11,6 +14,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByOfferPartnerId(long id);
 
-    Integer countByStateAndOfferId(State state, long id);
+    @Query("SELECT r FROM Reservation r WHERE  r.offer = :offer AND r.date<= :date ORDER BY r.date DESC LIMIT 1")
+    Reservation findLastReservationByOfferAndDate(@Param("offer") Offer offer, @Param("date") Date date);
+
+    @Query("SELECT r FROM Reservation r WHERE  r.offer = :offer AND r.date>= :date ORDER BY r.date ASC LIMIT 1")
+    Reservation findFirstReservationByOfferAndDate(@Param("offer") Offer offer, @Param("date") Date date);
+
+    @Query("SELECT SUM(r.count_people) FROM Reservation r WHERE r.offer = :offer")
+    Integer getCountPeopleByOffer(@Param("offer") Offer offer);
 
 }

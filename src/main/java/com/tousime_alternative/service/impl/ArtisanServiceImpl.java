@@ -30,7 +30,7 @@ public class ArtisanServiceImpl implements ArtisanService {
     public ArtisanDto update(ArtisanDto artisanDto) {
         Artisan artisan = artisanRepository.findById(artisanDto.getId()).orElseThrow();
         artisan.setDestination(artisanDto.getDestination());
-        artisan.setGoogle_map(artisan.getGoogle_map());
+        artisan.setGoogle_map(artisanDto.getGoogle_map());
         artisan.setEmplacement(artisanDto.getEmplacement());
         artisan.setOpening_hour(artisanDto.getOpening_hour());
         artisan.setDescription(artisanDto.getDescription());
