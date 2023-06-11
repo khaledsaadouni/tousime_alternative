@@ -1,5 +1,6 @@
 package com.tousime_alternative.service.impl;
 
+import com.tousime_alternative.dto.AccomodationDto;
 import com.tousime_alternative.dto.EventDto;
 import com.tousime_alternative.model.Event;
 import com.tousime_alternative.repository.EventRepository;
@@ -26,6 +27,10 @@ public class EventServiceImpl implements EventService {
         this.eventRepository = eventRepository;
         this.partnerRepository = partnerRepository;
 
+    }
+    @Override
+    public List<EventDto>  findByPartnerId(Long id) {
+        return eventRepository.findAllByPartnerId(id).stream().map(EventDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

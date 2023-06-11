@@ -1,6 +1,7 @@
 package com.tousime_alternative.controller;
 
 import com.tousime_alternative.dto.AccomodationDto;
+import com.tousime_alternative.dto.OfferDto;
 import com.tousime_alternative.service.AccomodationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,10 @@ public class AccomodationController {
     @PostMapping("/add/{idPartner}")
     public ResponseEntity<AccomodationDto> add(@RequestBody AccomodationDto dto, @PathVariable("idPartner") long id) {
         return ResponseEntity.ok(accomodationService.createAccomodation(dto, id));
+    }
+    @GetMapping("/partner/{idpartner}")
+    public List<AccomodationDto> findByPartner(@PathVariable("idpartner") Long id) {
+        return accomodationService.findByPartnerId(id);
     }
 
     @GetMapping("/all")

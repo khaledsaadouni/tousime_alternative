@@ -6,11 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
+import java.time.Instant;
 
 @Data
 @Builder
 public class ReservationDto {
     private long id;
+    private Instant creation_date;
     private Date date;
     private State state;
     private Integer count_people;
@@ -34,6 +36,7 @@ private boolean payed;
                 .user(UserDto.fromEntity(reservation.getUser()))
                 .offer(OfferDto.fromEntity(reservation.getOffer()))
                 .payed(reservation.isPayed())
+                .creation_date(reservation.getCreationDate())
                 .build();
     }
 

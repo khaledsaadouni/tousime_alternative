@@ -20,7 +20,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r WHERE  r.offer = :offer AND r.date>= :date ORDER BY r.date ASC LIMIT 1")
     Reservation findFirstReservationByOfferAndDate(@Param("offer") Offer offer, @Param("date") Date date);
 
-    @Query("SELECT SUM(r.count_people) FROM Reservation r WHERE r.offer = :offer")
+    @Query("SELECT SUM(r.count_people) FROM Reservation r WHERE r.offer = :offer AND r.state != 'Canceled' ")
     Integer getCountPeopleByOffer(@Param("offer") Offer offer);
 
 }

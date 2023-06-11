@@ -51,6 +51,10 @@ public class AccomodationServiceImpl implements AccomodationService {
     public AccomodationDto  findById(Long id) {
         return accomodationRepository.findById(id).map(AccomodationDto::fromEntity).orElseThrow();
     }
+    @Override
+    public List<AccomodationDto>  findByPartnerId(Long id) {
+        return accomodationRepository.findAllByPartnerId(id).stream().map(AccomodationDto::fromEntity).collect(Collectors.toList());
+    }
 
     @Override
     public List<AccomodationDto> findAll() {

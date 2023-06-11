@@ -1,5 +1,6 @@
 package com.tousime_alternative.service.impl;
 
+import com.tousime_alternative.dto.EventDto;
 import com.tousime_alternative.dto.RestorationDto;
 import com.tousime_alternative.model.Restoration;
 import com.tousime_alternative.repository.PartnerRepository;
@@ -51,7 +52,10 @@ public class RestorationServiceImpl implements RestorationService {
     public Optional<RestorationDto> findById(Long id) {
         return restaurationRepository.findById(id).map(RestorationDto::fromEntity).stream().findFirst();
     }
-
+    @Override
+    public List<RestorationDto>  findByPartnerId(Long id) {
+        return restaurationRepository.findAllByPartnerId(id).stream().map(RestorationDto::fromEntity).collect(Collectors.toList());
+    }
     @Override
     public List<RestorationDto> findAll() {
         return restaurationRepository.findAll().stream().map(RestorationDto::fromEntity).collect(Collectors.toList());

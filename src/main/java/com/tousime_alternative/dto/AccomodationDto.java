@@ -30,6 +30,7 @@ public class AccomodationDto {
     private Instant creationDate;
 
     private List<ReviewDto> reviews;
+    private List<ReservationDto> reservations;
     private String google_map;
 
     public static AccomodationDto fromEntity(Accomodation accomodation) {
@@ -56,6 +57,7 @@ public class AccomodationDto {
                 .destination(accomodation.getDestination())
                 .creationDate(accomodation.getCreationDate())
                 .reviews(accomodation.getReviews() != null ? accomodation.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
+                .reservations(accomodation.getReservations() != null ? accomodation.getReservations().stream().map(ReservationDto::fromEntity).collect(Collectors.toList()) :null)
                 .build();
     }
 

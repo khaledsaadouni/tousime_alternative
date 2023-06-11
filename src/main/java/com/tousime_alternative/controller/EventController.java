@@ -1,5 +1,6 @@
 package com.tousime_alternative.controller;
 
+import com.tousime_alternative.dto.AccomodationDto;
 import com.tousime_alternative.dto.EventDto;
 import com.tousime_alternative.service.EventService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,10 @@ public class EventController {
     public ResponseEntity<EventDto> add(@RequestBody EventDto dto, @PathVariable("idPartner") long id) {
         return ResponseEntity.ok(eventService.createEvent(dto, id));
     }
-
+    @GetMapping("/partner/{idpartner}")
+    public List<EventDto> findByPartner(@PathVariable("idpartner") Long id) {
+        return eventService.findByPartnerId(id);
+    }
     @GetMapping("/all")
     public List<EventDto> findAll() {
         return eventService.findAll();

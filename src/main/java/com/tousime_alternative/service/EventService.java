@@ -11,7 +11,7 @@ public interface EventService {
     Optional<EventDto> findById(Long id);
 
     List<EventDto> findAll();
-
+    List<EventDto>  findByPartnerId(Long id);
     void delete(Long id);
 
 

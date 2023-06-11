@@ -1,5 +1,6 @@
 package com.tousime_alternative.controller;
 
+import com.tousime_alternative.dto.EventDto;
 import com.tousime_alternative.dto.RestorationDto;
 import com.tousime_alternative.service.RestorationService;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,10 @@ public class RestaurationController {
     @PostMapping("/add/{idPartner}")
     public ResponseEntity<RestorationDto> add(@RequestBody RestorationDto dto, @PathVariable("idPartner") long id) {
         return ResponseEntity.ok(restaurationService.createRestauration(dto, id));
+    }
+    @GetMapping("/partner/{idpartner}")
+    public List<RestorationDto> findByPartner(@PathVariable("idpartner") Long id) {
+        return restaurationService.findByPartnerId(id);
     }
 
     @GetMapping("/all")

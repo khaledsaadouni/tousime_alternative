@@ -100,6 +100,18 @@ public class ReservationServiceImpl implements ReservationService {
         if (offer.getGeneric_Type().equals("accomodation")) {
             Reservation reservation = reservationRepository.findLastReservationByOfferAndDate(offer, reservationDto.getDate());
             Reservation reservation2 = reservationRepository.findFirstReservationByOfferAndDate(offer, reservationDto.getDate());
+            if(reservation2==null){
+              System.out.println("r2 null");
+            }else{
+                System.out.println("r2 not null");
+                System.out.println(reservation2.getDate());
+            } if(reservation==null){
+              System.out.println("r null");
+            }else{
+                System.out.println("r not null");
+
+                System.out.println(reservation.getDate());
+            }
             if (reservation == null && reservation2 == null) {
                 r.setCreationDate(Instant.now());
                 r.setUser(userRepository.findById(iduser).orElseThrow());
@@ -122,7 +134,6 @@ public class ReservationServiceImpl implements ReservationService {
                 r.setState(State.Pending);
                 return ReservationDto.fromEntity(reservationRepository.save(r));
             } else if (reservation != null && reservation2 != null && reservationDto.getDate().getTime() > reservation.getCheckout().getTime() && reservationDto.getCheckout().getTime() < reservation2.getDate().getTime()) {
-
                 r.setCreationDate(Instant.now());
                 r.setUser(userRepository.findById(iduser).orElseThrow());
                 r.setOffer(offer);

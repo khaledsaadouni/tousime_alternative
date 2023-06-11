@@ -12,7 +12,7 @@ public interface RestorationService {
     Optional<RestorationDto> findById(Long id);
 
     List<RestorationDto> findAll();
-
+    List<RestorationDto>  findByPartnerId(Long id);
     void delete(Long id);
 
     RestorationDto createRestauration(RestorationDto dto, long id);

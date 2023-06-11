@@ -31,6 +31,9 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if(repository.existsByEmail(request.getEmail())){
+            throw new RuntimeException("Email already exists");
+        }
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -49,6 +52,9 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse registerPartner(RegisterRequestPartner request) {
+        if(repository.existsByEmail(request.getEmail())){
+            throw new RuntimeException("Email already exists");
+        }
         Partner user = new Partner();
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
@@ -67,17 +73,20 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        var user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Email not found"));
+        try{
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
-        );
-        var user = repository.findByEmail(request.getEmail()).orElseThrow();
+        );}
+        catch (Exception e){
+            throw new RuntimeException("Incorrect Password");
+        }
         var jwtToken = jwtService.generateToken(user);
-        System.out.println("token"+jwtToken);
         if (user.getRole() == Role.Partner) {
-            var partner = partnerRepository.findByEmail(request.getEmail()).orElseThrow();
+            var partner = partnerRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Email not found"));
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .user(PartnerDto.fromEntity(partner))

@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -36,6 +37,7 @@ public class OfferDto {
                 .destination(offer.getDestination())
                 .generic_Type(offer.getGeneric_Type())
                 .creationDate(offer.getCreationDate())
+
                 .build();
     }
 

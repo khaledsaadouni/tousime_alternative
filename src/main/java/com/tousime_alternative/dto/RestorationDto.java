@@ -30,6 +30,8 @@ public class RestorationDto {
     private List<ReviewDto> reviews;
     private String google_map;
 
+    private List<ReservationDto> reservations;
+
     public static RestorationDto fromEntity(Restoration restauration) {
         if (restauration == null) {
             return null;
@@ -53,6 +55,8 @@ public class RestorationDto {
                 .partner(PartnerDto.fromEntity(restauration.getPartner()))
                 .creationDate(restauration.getCreationDate())
                 .reviews(restauration.getReviews() != null ? restauration.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
+                .reservations(restauration.getReservations() != null ? restauration.getReservations().stream().map(ReservationDto::fromEntity).collect(Collectors.toList()) :null)
+
                 .build();
     }
 
