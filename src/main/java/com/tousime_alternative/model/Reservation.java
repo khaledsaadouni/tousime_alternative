@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
@@ -29,6 +31,8 @@ public class Reservation extends AbstractEntity {
     @ManyToOne()
     @JoinColumn(name = "idUser")
     private User user;
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.REMOVE)
+    private List<Extras> extras;
     @Column()
     private boolean payed;
 }

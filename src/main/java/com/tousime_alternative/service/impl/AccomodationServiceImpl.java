@@ -1,7 +1,9 @@
 package com.tousime_alternative.service.impl;
 
 import com.tousime_alternative.dto.AccomodationDto;
+import com.tousime_alternative.dto.ExtrasDto;
 import com.tousime_alternative.model.Accomodation;
+import com.tousime_alternative.model.Extras;
 import com.tousime_alternative.repository.AccomodationRepository;
 import com.tousime_alternative.repository.PartnerRepository;
 import com.tousime_alternative.service.AccomodationService;
@@ -18,10 +20,13 @@ import java.util.stream.Collectors;
 public class AccomodationServiceImpl implements AccomodationService {
     private AccomodationRepository accomodationRepository;
     private PartnerRepository partnerRepository;
+    private ExtrasServiceImpl extrasService;
 
     @Autowired
     public AccomodationServiceImpl(AccomodationRepository accomodationRepository,
+                                   ExtrasServiceImpl extrasService,
                                    PartnerRepository partnerRepository) {
+        this.extrasService = extrasService;
         this.accomodationRepository = accomodationRepository;
         this.partnerRepository = partnerRepository;
 
@@ -30,6 +35,13 @@ public class AccomodationServiceImpl implements AccomodationService {
     @Override
     public AccomodationDto update(AccomodationDto dto) {
         Accomodation accomodation = accomodationRepository.findById(dto.getId()).orElseThrow();
+        for (Extras extra : accomodation.getExtras()
+        ) {
+            extrasService.delete(extra.getId());
+
+        }
+        accomodation.setExtras(null);
+        accomodationRepository.save(accomodation);
         accomodation.setGeneric_Type("accomodation");
         accomodation.setDescription(dto.getDescription());
         accomodation.setGoogle_map(dto.getGoogle_map());
@@ -44,15 +56,20 @@ public class AccomodationServiceImpl implements AccomodationService {
         accomodation.setPrice(dto.getPrice());
         accomodation.setPromotion(dto.getPromotion());
         accomodation.setDestination(dto.getDestination());
+        accomodation.setAllow_many_reservation(dto.getAllow_many_reservation());
+        for (ExtrasDto extrasDto : dto.getExtras()) {
+            extrasService.createExtras(extrasDto, accomodation.getId());
+        }
         return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
     }
 
     @Override
-    public AccomodationDto  findById(Long id) {
+    public AccomodationDto findById(Long id) {
         return accomodationRepository.findById(id).map(AccomodationDto::fromEntity).orElseThrow();
     }
+
     @Override
-    public List<AccomodationDto>  findByPartnerId(Long id) {
+    public List<AccomodationDto> findByPartnerId(Long id) {
         return accomodationRepository.findAllByPartnerId(id).stream().map(AccomodationDto::fromEntity).collect(Collectors.toList());
     }
 
@@ -73,6 +90,11 @@ public class AccomodationServiceImpl implements AccomodationService {
         accomodation.setGeneric_Type("accomodation");
         accomodation.setCreationDate(Instant.now());
         accomodation.setPartner(partnerRepository.findById(id).orElseThrow());
-        return AccomodationDto.fromEntity(accomodationRepository.save(accomodation));
+        Accomodation accomodation_saved = accomodationRepository.save(accomodation);
+        for (ExtrasDto extra : dto.getExtras()
+        ) {
+            extrasService.createExtras(extra, accomodation_saved.getId());
+        }
+        return AccomodationDto.fromEntity(accomodationRepository.findById(accomodation_saved.getId()).orElseThrow());
     }
 }

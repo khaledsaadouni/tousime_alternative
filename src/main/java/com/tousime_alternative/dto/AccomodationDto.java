@@ -28,10 +28,11 @@ public class AccomodationDto {
     private float promotion;
     private PartnerDto partner;
     private Instant creationDate;
-
     private List<ReviewDto> reviews;
     private List<ReservationDto> reservations;
     private String google_map;
+    private List<ExtrasDto> extras;
+    private Boolean allow_many_reservation;
 
     public static AccomodationDto fromEntity(Accomodation accomodation) {
         if (accomodation == null) {
@@ -52,12 +53,14 @@ public class AccomodationDto {
                 .comodityList(accomodation.getComodityList())
                 .regulations(accomodation.getRegulations())
                 .price(accomodation.getPrice())
+                .allow_many_reservation(accomodation.getAllow_many_reservation())
                 .promotion(accomodation.getPromotion())
                 .partner(PartnerDto.fromEntity(accomodation.getPartner()))
                 .destination(accomodation.getDestination())
                 .creationDate(accomodation.getCreationDate())
                 .reviews(accomodation.getReviews() != null ? accomodation.getReviews().stream().map(ReviewDto::fromEntity).collect(Collectors.toList()) : null)
-                .reservations(accomodation.getReservations() != null ? accomodation.getReservations().stream().map(ReservationDto::fromEntity).collect(Collectors.toList()) :null)
+                .reservations(accomodation.getReservations() != null ? accomodation.getReservations().stream().map(ReservationDto::fromEntity).collect(Collectors.toList()) : null)
+                .extras(accomodation.getExtras() != null ? accomodation.getExtras().stream().map(ExtrasDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 
@@ -81,6 +84,7 @@ public class AccomodationDto {
         accomodation.setRegulations(dto.getRegulations());
         accomodation.setPrice(dto.getPrice());
         accomodation.setPromotion(dto.getPromotion());
+        accomodation.setAllow_many_reservation(dto.getAllow_many_reservation());
         accomodation.setDestination(dto.getDestination());
         return accomodation;
     }

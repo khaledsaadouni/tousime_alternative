@@ -1,7 +1,6 @@
 package com.tousime_alternative.controller;
 
 import com.tousime_alternative.dto.AccomodationDto;
-import com.tousime_alternative.dto.OfferDto;
 import com.tousime_alternative.service.AccomodationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -14,6 +14,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByOfferPartnerId(long id);
 
+    List<Reservation> findAllByOfferId(Long id);
+
     @Query("SELECT r FROM Reservation r WHERE  r.offer = :offer AND r.date<= :date ORDER BY r.date DESC LIMIT 1")
     Reservation findLastReservationByOfferAndDate(@Param("offer") Offer offer, @Param("date") Date date);
 

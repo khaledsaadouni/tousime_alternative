@@ -7,6 +7,8 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -20,7 +22,10 @@ public class ReservationDto {
     private float price;
     private UserDto user;
     private OfferDto offer;
-private boolean payed;
+
+    private List<ExtrasDto> extras;
+    private boolean payed;
+
     public static ReservationDto fromEntity(Reservation reservation) {
         if (reservation == null) {
             return null;
@@ -37,6 +42,7 @@ private boolean payed;
                 .offer(OfferDto.fromEntity(reservation.getOffer()))
                 .payed(reservation.isPayed())
                 .creation_date(reservation.getCreationDate())
+                .extras(reservation.getExtras() != null ? reservation.getExtras().stream().map(ExtrasDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 

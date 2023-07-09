@@ -22,6 +22,8 @@ public class Accomodation extends Offer {
     @CollectionTable(name = "table_regulations_accom")
     @Column()
     private List<String> regulations;
+    @Column()
+    private Boolean allow_many_reservation = false;
     @ElementCollection
     @CollectionTable(name = "table_photos_accom")
     @Column()
@@ -35,4 +37,7 @@ public class Accomodation extends Offer {
     private float price;
     @Column(length = 8)
     private float promotion;
+
+    @OneToMany(mappedBy = "accomodation", cascade = CascadeType.REMOVE)
+    private List<Extras> extras;
 }

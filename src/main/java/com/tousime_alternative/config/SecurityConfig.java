@@ -1,7 +1,6 @@
 package com.tousime_alternative.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.jconsole.JConsoleContext;
 import com.tousime_alternative.OAuth2.CustomOAuth2User;
 import com.tousime_alternative.OAuth2.CustomOAuth2UserService;
 import com.tousime_alternative.OAuth2.OAuthUserService;
@@ -22,7 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 
 
@@ -47,7 +45,11 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/v1/accomodation/all")
                 .permitAll()
+                .requestMatchers("/api/v1/program/all")
+                .permitAll()
                 .requestMatchers("/api/v1/accomodation/**")
+                .permitAll()
+                .requestMatchers("/api/v1/program/**")
                 .permitAll()
                 .requestMatchers("/api/v1/event/all")
                 .permitAll()

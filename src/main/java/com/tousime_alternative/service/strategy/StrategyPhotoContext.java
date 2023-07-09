@@ -36,16 +36,20 @@ public class StrategyPhotoContext {
             case "event" :
                 strategy = beanFactory.getBean(beanName, SaveEventPhoto.class);
                 break;
-            case "profil" :
+            case "profil":
                 strategy = beanFactory.getBean(beanName, SaveProfilPhoto.class);
                 break;
-            case "restoration" :
+            case "restoration":
                 strategy = beanFactory.getBean(beanName, SaveRestorationPhoto.class);
                 break;
-            case "shop" :
+            case "shop":
                 strategy = beanFactory.getBean(beanName, SaveShopPhoto.class);
                 break;
-            default: throw new InvalidOperationException("Contexte inconnue pour l'enregistrement de la photo" );
+            case "program":
+                strategy = beanFactory.getBean(beanName, SaveProgramPhoto.class);
+                break;
+            default:
+                throw new InvalidOperationException("Contexte inconnue pour l'enregistrement de la photo");
         }
     }
 }
