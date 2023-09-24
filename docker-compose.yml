@@ -1,5 +1,5 @@
 version: "3.7"
-  services:
+services:
     api_service:
       build: .
       restart: always
@@ -33,9 +33,5 @@ version: "3.7"
       depends_on:
         - api_service
 
-
-  networks:
-    springapimysql-net:
-
-
-
+networks:
+  springapimysql-net:
