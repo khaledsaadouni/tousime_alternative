@@ -1,0 +1,25 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: SSH into VPS and update code
+        run: |
+          sshpass -p 'M1e2d3S4irat$$2005' ssh -o StrictHostKeyChecking=no ubuntu@141.94.223.64 "cd /home/ubuntu/tourism_alternative/tousime_alternative && git pull"
+
+      - name: Restart Docker Compose
+        run: |
+          sshpass -p 'M1e2d3S4irat$$2005' ssh -o StrictHostKeyChecking=no ubuntu@141.94.223.64 "cd /home/ubuntu/tourism_alternative/tousime_alternative && sudo docker-compose down && sudo docker-compose up -d --build"
